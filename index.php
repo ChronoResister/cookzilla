@@ -46,8 +46,8 @@
             </ul>
             
             <div class="navbar-form navbar-right">
-              <a class="btn btn-primary" href="/cookzilla/sign.php">Sign up</a>
-              <a class="btn btn-default" href="/cookzilla/sign.php">Sign in</a>
+              <a class="btn btn-primary" href="/cookzilla/signup.php">Sign up</a>
+              <a class="btn btn-default" href="/cookzilla/signin.php">Sign in</a>
             </div>
             
             <!--
@@ -64,10 +64,10 @@
    <div class="jumbotron" id="outer">
         <h1 align="center">Cookzilla!</h1>
         <p align="center">The best community for recipe sharing and cooking events.</p>
-        <p align="center">
+        <!--<p align="center">
         <a class="btn btn-primary btn-lg" href="/cookzilla/sign.php">Sign up</a>
               <a class="btn btn-default btn-lg" href="/cookzilla/sign.php">Sign in</a>
-      </p>
+      </p>-->
    </div>
 </div>
 

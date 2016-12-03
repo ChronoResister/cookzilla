@@ -2,8 +2,9 @@
 	<title>cookzilla</title>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<style>
-		.navbar.navbar-inverse.navbar-extra{
-			color: orange;
+		#profile{
+
+			max-height: 200;
 		}
 	</style>
 </head>
@@ -59,25 +60,27 @@
         </div>
       </div>
 
+
      <div class="container">
-  <form class="form-signin" method="POST" action="/accounts/signup/">
+  <form class="form-signin" method="POST" action="/cookzilla/check.php">
     <h3 class="form-signin-heading">Sign Up</h3>
     <hr>
     <input type="hidden" name="csrfmiddlewaretoken" value="ATJpOoTKlFZIZKALOpdr6BvmjWuLNmECMKelyt0vqOt93EPBkPydgpa0nwoLg8uZ">
-    <div class="form-group"><input autofocus="autofocus" id="id_username" maxlength="150" minlength="1" name="username" placeholder="Email address" type="text" required="" class="form-control"></div>
-    <div class="form-group"><input id="id_email" name="email" placeholder="Nickname" type="email" required="" class="form-control"></div>
-    <div class="form-group"><input id="id_password1" name="password1" placeholder="Password" type="password" required="" class="form-control"></div>
+    <div class="form-group"><input autofocus="autofocus" id="user_id" maxlength="150" minlength="1" name="user_id" placeholder="Email Address" type="email" required="" class="form-control"></div>
+    <div class="form-group"><input id="nickname" name="nickname" placeholder="Nickname"  required="" class="form-control"></div>
+    <div class="form-group"><input id="password" name="password" placeholder="Password" type="password" required="" class="form-control">
+    <div  id = "profile"><input id="profile" name="profile" placeholder="Profile" type="text" required="" class="form-control"></div>
     
     
     
-    
+
     <button class="btn btn-primary" type="submit">Sign Up</button>
-    
+ <!--   
      <form class="form-signin" method="POST" action="/accounts/login/">
     <h3 class="form-signin-heading">Sign In</h3>
     <hr>
     <input type="hidden" name="csrfmiddlewaretoken" value="rXFdSRXruxzUciyOFoXUWPdYKK2VjNKZDOa9CW4czG3lgcNEbOiG6DSCOkWVMzAm">
-    <div class="form-group"><input autofocus="autofocus" id="id_login" name="login" placeholder="Email address" type="text" required="" class="form-control"></div>
+    <div class="form-group"><input autofocus="autofocus" id="id_login" name="login" placeholder="User Id" type="text" required="" class="form-control"></div>
     <div class="form-group"><input id="id_password" name="password" placeholder="Password" type="password" required="" class="form-control"></div>
     <label class="form-group"><input id="id_remember" name="remember" type="checkbox">Remember Me</label>
     <div class="form-group">
@@ -90,7 +93,7 @@
       
     
   </form>
-          
+  -->
 
 
 
