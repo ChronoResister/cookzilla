@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
 <head>
 	<title>cookzilla</title>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
@@ -60,22 +58,45 @@
           </div><!--/.navbar-collapse -->
         </div>
       </div>
-<div class="container">
-   <div class="jumbotron" id="outer">
-        <h1 align="center">Cookzilla!</h1>
-        <p align="center">The best community for recipe sharing and cooking events.</p>
-        <p align="center">
-        <a class="btn btn-primary btn-lg" href="/cookzilla/sign.php">Sign up</a>
-              <a class="btn btn-default btn-lg" href="/cookzilla/sign.php">Sign in</a>
-      </p>
-   </div>
+
+     <div class="container">
+  <form class="form-signin" method="POST" action="/accounts/signup/">
+    <h3 class="form-signin-heading">Sign Up</h3>
+    <hr>
+    <input type="hidden" name="csrfmiddlewaretoken" value="ATJpOoTKlFZIZKALOpdr6BvmjWuLNmECMKelyt0vqOt93EPBkPydgpa0nwoLg8uZ">
+    <div class="form-group"><input autofocus="autofocus" id="id_username" maxlength="150" minlength="1" name="username" placeholder="Email address" type="text" required="" class="form-control"></div>
+    <div class="form-group"><input id="id_email" name="email" placeholder="Nickname" type="email" required="" class="form-control"></div>
+    <div class="form-group"><input id="id_password1" name="password1" placeholder="Password" type="password" required="" class="form-control"></div>
+    
+    
+    
+    
+    <button class="btn btn-primary" type="submit">Sign Up</button>
+    
+     <form class="form-signin" method="POST" action="/accounts/login/">
+    <h3 class="form-signin-heading">Sign In</h3>
+    <hr>
+    <input type="hidden" name="csrfmiddlewaretoken" value="rXFdSRXruxzUciyOFoXUWPdYKK2VjNKZDOa9CW4czG3lgcNEbOiG6DSCOkWVMzAm">
+    <div class="form-group"><input autofocus="autofocus" id="id_login" name="login" placeholder="Email address" type="text" required="" class="form-control"></div>
+    <div class="form-group"><input id="id_password" name="password" placeholder="Password" type="password" required="" class="form-control"></div>
+    <label class="form-group"><input id="id_remember" name="remember" type="checkbox">Remember Me</label>
+    <div class="form-group">
+      
+      <button class="btn btn-primary" type="submit">Sign In</button>
+      
+    </div>
+    
+      <hr>
+      
+    
+  </form>
+          
+
+
+
+        </ul>
+      </div>
+    
+  </form>
 </div>
-
-<?php
-
-?>
-</body>
-<script type="text/javascript">
-	
-</script>
-</html>
+     </body>
