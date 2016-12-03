@@ -1,4 +1,4 @@
-create table user(
+create table Users(
 	uname varchar(40),
 	nickname varchar(40) not null,
 	password varchar(40) not null,
@@ -14,7 +14,7 @@ create table recipe(
 	r_description text,
 	rtime datetime,
 	primary key (recipeId),
-	foreign key (uname) references user(uname)
+	foreign key (uname) references users(uname)
 )
 auto_increment = 10000;
 
@@ -29,14 +29,6 @@ create table ingredient(
 	foreign key (recipeId) references recipe(recipeId)
 );
 
-create table recipe_pic(
-	rpId int auto_increment,
-    recipeId int,
-	image blob,
-	primary key (rpId),
-	foreign key (recipeId) references recipe(recipeId)
-)
-auto_increment = 10000;
 
 
 create table related(
@@ -64,27 +56,19 @@ create table review(
 	wsuggestion text,
 	wtime datetime,
 	primary key (reviewId),
-	foreign key (uname) references user(uname),
-	foreign key (recipeId) references recipe(recipeId),
-	constraint chk_wrating check (wrating >= 1 or wrating <= 5)
+	foreign key (uname) references users(uname),
+	foreign key (recipeId) references recipe(recipeId)
+	
 )
 auto_increment = 10000;
 
-create table review_pic(
-	wpId int auto_increment, 
-	reviewId int,
-	image blob,
-	primary key (wpId),
-	foreign key (reviewId) references review(reviewId)
-)
-auto_increment = 10000;
 
 create table user_group(
 	gid int auto_increment,
 	gname varchar(40),
 	creater varchar(40),
 	primary key (gid),
-	foreign key (creater) references user(uname)
+	foreign key (creater) references users(uname)
 )
 auto_increment = 10000;
 
@@ -92,10 +76,10 @@ create table group_mem(
 	gid int,
 	uname varchar(40),
 	primary key (gid, uname),
-	foreign key (uname) references user(uname)
+	foreign key (uname) references users(uname)
 );
 
-create table event(
+create table user_event(
 	eid int auto_increment,
 	gid int,
 	ename varchar(40),
@@ -105,7 +89,7 @@ create table event(
 	max_number int,
 	primary key (eid),
 	foreign key (gid) references user_group(gid),
-	foreign key (creater) references user(uname)
+	foreign key (creater) references users(uname)
 )
 auto_increment = 10000;
 
@@ -113,8 +97,8 @@ create table rsvp(
 	uname varchar(40),
 	eid int,
 	primary key (uname, eid),
-	foreign key (uname) references user(uname),
-	foreign key (eid) references event(eid)
+	foreign key (uname) references users(uname),
+	foreign key (eid) references user_event(eid)
 );
 
 create table event_report(
@@ -124,21 +108,12 @@ create table event_report(
 	rtext text,
 	ertime datetime,
 	primary key (erId),
-    foreign key (uname) references user(uname),
-    foreign key (eid) references event(eid)
+    foreign key (uname) references users(uname),
+    foreign key (eid) references user_event(eid)
 )
 auto_increment = 10000;
 
-create table event_pic(
-	epId int auto_increment,
-	uname varchar(40),
-	eid int,
-	image blob,
-	primary key (epId),
-	foreign key (uname) references user(uname),
-	foreign key (eid) references event(eid)
-)
-auto_increment = 10000;
+
 
 
 
