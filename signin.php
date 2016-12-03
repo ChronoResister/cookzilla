@@ -62,19 +62,19 @@
 
 
      <div class="container">
-  <form class="form-signin" method="POST" action="/cookzilla/check.php">
-    <h3 class="form-signin-heading">Sign Up</h3>
+  <form class="form-signin" method="POST" action="/cookzilla/login.php">
+    <h3 class="form-signin-heading">Sign In</h3>
     <hr>
     <input type="hidden" name="csrfmiddlewaretoken" value="ATJpOoTKlFZIZKALOpdr6BvmjWuLNmECMKelyt0vqOt93EPBkPydgpa0nwoLg8uZ">
     <div class="form-group"><input autofocus="autofocus" id="user_id" maxlength="150" minlength="1" name="user_id" placeholder="Email Address" type="email" required="" class="form-control"></div>
-    <div class="form-group"><input id="nickname" name="nickname" placeholder="Nickname"  required="" class="form-control"></div>
+    
     <div class="form-group"><input id="password" name="password" placeholder="Password" type="password" required="" class="form-control">
-    <div  id = "profile"><input id="profile" name="profile" placeholder="Profile" type="text" required="" class="form-control"></div>
+    
     
     
     
 
-    <button class="btn btn-primary" type="submit">Sign Up</button>
+    <button class="btn btn-primary" type="submit">Sign In</button>
  <!--   
      <form class="form-signin" method="POST" action="/accounts/login/">
     <h3 class="form-signin-heading">Sign In</h3>
