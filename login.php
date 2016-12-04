@@ -1,6 +1,5 @@
 <?php
-#require 'authentication.inc';
-#require 'db.inc';
+session_start();
 
 if (!$connection = @ mysql_connect("localhost", "root", ""))
   die("Cannot connect" . mysql_error());
@@ -19,7 +18,8 @@ if ($num_rows == 0) {
        history.go(-1);
     </script>";
 } else {
-	echo "<script type='text/javascript'>";  
+$_SESSION['uname']=$uname;
+echo "<script type='text/javascript'>";  
 echo "alert('Sign in successfully. Loading back to frong page...');";
 echo "window.location.href='/cookzilla/index.php'";
 echo "</script>";  
