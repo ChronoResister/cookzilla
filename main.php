@@ -5,6 +5,9 @@
 <head>
 	<title>cookzilla</title>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+
 	<style>
 		.navbar.navbar-inverse.navbar-extra{
 			color: orange;
@@ -48,10 +51,37 @@
               
             </ul>
             
-            <div class="navbar-form navbar-right">
-              <a class="btn btn-primary" href="/cookzilla/signup.php">Sign up</a>
-              <a class="btn btn-default" href="/cookzilla/signin.php">Sign in</a>
+            <div class="dropdown">
+            <ul id="navbar-right" class="nav navbar-nav navbar-right">
+              <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                
+               <?php
+				session_start();
+			//需要用isset来检测变量，不然php可能会报错。
+				echo $_SESSION['nickname']. "(". $_SESSION['uname'].")";
+				
+			?>
+                
+                <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="/profile/">My Recipe</a></li>
+                <li><a href="/subscription/">My Review</a></li>
+                <li><a href="/subscription/">My Group</a></li>
+                <li><a href="/subscription/">My Event</a></li>
+                <li><a href="/subscription/">My Report</a></li>
+                <li class="divider"></li>
+                <li><a href="/submissions/">My Notifications</a></li>
+                <li class="divider"></li>
+                <li><a href="logout.php">Sign out</a></li>
+              </ul>
+              </li>
+            </ul>
             </div>
+
+
+
             
             <!--
             <form class="navbar-form pull-right">
@@ -82,4 +112,5 @@
 <script type="text/javascript">
 	
 </script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 </html>

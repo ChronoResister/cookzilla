@@ -9,7 +9,7 @@ $uname = $_POST['user_id'];
 $password = $_POST['password'];
 #echo $kw;
 
-$query = "SELECT * from users where uname = '".$uname."' and password = '".$password."'";
+$query = "SELECT nickname from users where uname = '".$uname."' and password = '".$password."'";
 $result = mysql_query($query) or die('Query failed: ' . mysql_error());
 $num_rows = mysql_num_rows($result);
 if ($num_rows == 0) {
@@ -18,7 +18,9 @@ if ($num_rows == 0) {
        history.go(-1);
     </script>";
 } else {
+$row = mysql_fetch_row($result);
 $_SESSION['uname']=$uname;
+$_SESSION['nickname']=$row[0];
 echo "<script type='text/javascript'>";  
 echo "alert('Sign in successfully. Loading back to frong page...');";
 echo "window.location.href='/cookzilla/index.php'";
