@@ -45,8 +45,8 @@
             </ul>
             
             <div class="navbar-form navbar-right">
-              <a class="btn btn-primary" href="/cookzilla3/signup.php">Sign up</a>
-              <a class="btn btn-default" href="/cookzilla3/signin.php">Sign in</a>
+              <a class="btn btn-primary" href="/cookzilla/signup.php">Sign up</a>
+              <a class="btn btn-default" href="/cookzilla/signin.php">Sign in</a>
             </div>
             
             <!--
@@ -63,11 +63,13 @@
 <br>
 </br>
 
-
 <?php
 session_start();
 $uname = $_SESSION['uname'];
 //echo $uname;
+$eid = $_GET["eid"];
+echo $eid;
+//$uname = $_SESSION['uname'];
 //echo $uname;
 $con = mysql_connect("127.0.0.1","root",""); 
 if (!$con)
@@ -78,85 +80,49 @@ if (!$con)
 mysql_select_db("cookzilla", $con);
 
 
-//<h1> Joined Group </h1>
-echo "<h2>Joined Group</h2>";
-$result2 = mysql_query("SELECT U.gid ,U.gname , U.creater 
-FROM user_group U, group_mem G
-WHERE U.gid = G.gid and G.uname = '$uname'");
+echo "<h2> Group reports </h2>";
+$result2 = mysql_query("SELECT E.eid,E.ename,R.uname,R.rtext
+FROM user_event E, event_report R
+WHERE R.eid = E.eid and E.eid = '$eid' ");
 
 echo "
 <style>
 table, th, td {
     border: 1px solid black;
- 
     border-collapse: collapse;
-}
-th {
-    background-color: #337ab7;
-    color: white;
 }
 th, td {
     padding: 15px;
 }
-tr:hover{background-color:#f5f5f5}
-
-
 </style>
 <table border='1'>
 <tr>
-<th>GroupID</th>
-<th>Groupname</th>
-<th>Creater</th>
+<th>EventID</th>
+<th>Eventname</th>
+<th>Username</th>
+<th>ReportText</th>
 </tr>";
 
 while($row = mysql_fetch_array($result2))
   {
-  
-
   echo "<tr>";
-  echo "<td>" . $row['gid'] . "</td>";
-  echo "<td><a href=\"joinEvent.php?gid=".urlencode($row['gid'])."\">".$row['gname']."</a>"."</td>"; 
-  //echo "<td>" . $row['gname'] . "</td>";
-  echo "<td>" . $row['creater'] . "</td>";
+  echo "<td>" . $row['eid'] . "</td>";
+  echo "<td>" . $row['ename'] . "</td>";
+  echo "<td>" . $row['uname'] . "</td>";
+  echo "<td>" . $row['rtext'] . "</td>";
   echo "</tr>";
   }
 echo "</table>";
 
 echo '<br>';
-//echo  '<hr>'
-//<h1> All  Groups <h1>
-echo "<h2>All Groups</h2>";
-$result1 = mysql_query("SELECT * FROM user_group");
+//<h1> Joined Group </h1>
 
-echo "<table border='1'>
-<tr>
-<th>GroupID</th>
-<th>Groupname</th>
-<th>Creater</th>
-</tr>";
-
-while($row = mysql_fetch_array($result1))
-  {
-  echo "<tr>";
-  echo "<td>" . $row['gid'] . "</td>";
-  echo "<td><a href=\"event.php?gid=".urlencode($row['gid'])."\">".$row['gname']."</a>"."</td>"; 
-  //echo "<td>" . $row['gname'] . "</td>";
-  echo "<td>" . $row['creater'] . "</td>";
-  echo "</tr>";
-  }
-echo "</table>";
 
 mysql_close($con);
 
 ?>
-
 <div class="navbar-form navbar-left">
-              <a class="btn btn-primary" href="/cookzilla/joinGroup.php">Join Groups</a>        
+              <a class="btn btn-primary" href="/cookzilla/createreport.php">Write Report</a>
+              
 </div>
-
-<div class="navbar-form navbar-left">
-              <a class="btn btn-primary" href="/cookzilla/createGroup.php">Create Groups</a>        
-</div>
-
-
 

@@ -106,6 +106,10 @@ insert into group_mem values(1, "weichang");
 insert into group_mem values(1, "gluttony");
 insert into group_mem values(2, "gluttony");
 
+insert into group_mem values(1, "wz887@nyu.edu");
+insert into group_mem values(2, "wz887@nyu.edu");
+
+
 
 insert into user_event values(1, 1, "hotpot together", "bc1958", "1000-01-01 00:00:00", "9999-12-31 23:59:59", 10);
 insert into user_event values(2, 1, "pizza together", "weichang", "1000-01-01 00:00:00", "9999-12-31 23:59:59", 10);
@@ -124,3 +128,16 @@ insert into rsvp values("Jackie", 4);
 insert into rsvp values("Jackie", 1);
 insert into rsvp values("ronaldo", 5);
 insert into rsvp values("ronaldo", 2);
+
+insert into rsvp values("wz887@nyu.edu", 1);
+insert into rsvp values("wz887@nyu.edu", 2);
+insert into rsvp values("wz887@nyu.edu", 3);
+insert into rsvp values("wz887@nyu.edu", 4);
+insert into rsvp values("wz887@nyu.edu", 5);
+
+insert into event_report values(1,"wz887@nyu.edu", 2,"amazing event","1000-01-01 00:00:00");	
+insert into event_report values(2,"wz887@nyu.edu", 1,"amazing event2","1000-01-01 00:00:01");	
+insert into event_report values(3,"wz887@nyu.edu", 3,"amazing event3","1000-01-01 00:00:02");	
+insert into event_report values(4,"wz887@nyu.edu", 4,"amazing event4","1000-01-01 00:00:10");
+insert into event_report values(0,"wz887@nyu.edu", 3,"amazing event!!!!","1000-01-01 00:00:10");
+insert into event_report values(0,"wz887@nyu.edu", 4,"amazing event!!????!!","1000-01-01 00:00:10");			
