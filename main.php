@@ -108,6 +108,10 @@
               
             </div>
 
+<div class="navbar-form navbar-left">
+              <a class="btn btn-primary" href="/cookzilla/group.php">Check Group</a>
+              
+</div>
 </body>
 <script type="text/javascript">
 	

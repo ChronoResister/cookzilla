@@ -61,17 +61,15 @@
       </div>
 
 
-     <div class="container inline" >
-     <div class="col-xs-6  col-center-block" style="float: left">
-
-  <form class="form-signin" method="POST" action="/cookzilla/check.php" >
+     <div class="container">
+  <form class="form-signin" method="POST" action="/cookzilla/check.php">
     <h3 class="form-signin-heading">Sign Up</h3>
     <hr>
     <input type="hidden" name="csrfmiddlewaretoken" value="ATJpOoTKlFZIZKALOpdr6BvmjWuLNmECMKelyt0vqOt93EPBkPydgpa0nwoLg8uZ">
     <div class="form-group"><input autofocus="autofocus" id="user_id" maxlength="150" minlength="1" name="user_id" placeholder="Email Address" type="email" required="" class="form-control"></div>
     <div class="form-group"><input id="nickname" name="nickname" placeholder="Nickname"  required="" class="form-control"></div>
-    <div class="form-group"><input id="password" name="password" placeholder="Password" type="password" required="" class="form-control"></div>
-    <div class = "form-group"><div class="textarea"><textarea id="profile" name="profile" placeholder="Profile" type="text" required="" class="form-control" rows="20"></textarea></div></div>
+    <div class="form-group"><input id="password" name="password" placeholder="Password" type="password" required="" class="form-control">
+    <div  id = "profile"><input id="profile" name="profile" placeholder="Profile" type="text" required="" class="form-control"></div>
     
     
     
@@ -100,50 +98,8 @@
 
 
         </ul>
-      
+      </div>
     
   </form>
-  </div>
-  <div class="col-xs-6  col-center-block" style="float: right;">
-  <form class="form-signin" method="POST" action="/cookzilla/login.php" >
-    <h3 class="form-signin-heading">Sign In</h3>
-    <hr>
-    <input type="hidden" name="csrfmiddlewaretoken" value="ATJpOoTKlFZIZKALOpdr6BvmjWuLNmECMKelyt0vqOt93EPBkPydgpa0nwoLg8uZ">
-    <div class="form-group"><input autofocus="autofocus" id="user_id" maxlength="150" minlength="1" name="user_id" placeholder="Email Address" type="email" required="" class="form-control"></div>
-    
-    <div class="form-group"><input id="password" name="password" placeholder="Password" type="password" required="" class="form-control"></div>
-    
-    
-    
-    
-
-    <button class="btn btn-primary" type="submit">Sign In</button>
- <!--   
-     <form class="form-signin" method="POST" action="/accounts/login/">
-    <h3 class="form-signin-heading">Sign In</h3>
-    <hr>
-    <input type="hidden" name="csrfmiddlewaretoken" value="rXFdSRXruxzUciyOFoXUWPdYKK2VjNKZDOa9CW4czG3lgcNEbOiG6DSCOkWVMzAm">
-    <div class="form-group"><input autofocus="autofocus" id="id_login" name="login" placeholder="User Id" type="text" required="" class="form-control"></div>
-    <div class="form-group"><input id="id_password" name="password" placeholder="Password" type="password" required="" class="form-control"></div>
-    <label class="form-group"><input id="id_remember" name="remember" type="checkbox">Remember Me</label>
-    <div class="form-group">
-      
-      <button class="btn btn-primary" type="submit">Sign In</button>
-      
-    </div>
-    
-      <hr>
-      
-    
-  </form>
-  -->
-
-
-
-        </ul>
-      
-    
-  </form>
-</div>
 </div>
      </body>
