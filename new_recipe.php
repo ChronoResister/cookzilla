@@ -122,7 +122,7 @@
 </div>
 </div>
  <div class="col-xs-6  col-center-block">  
-  <form class="form-horizontal" action="add_recipe.php" method="post">
+  <form class="form-horizontal" onsubmit="return check()" action="add_recipe.php" method="post" name="form">
     <fieldset>
       <div id="legend" class="">
         
@@ -142,7 +142,7 @@
           <!-- Text input-->
           <label class="control-label" for="input01">Number of Serving</label>
           <div class="controls">
-            <input type="text" placeholder="estimated number of serving" name ="nos" class="form-control">
+            <input type="number" placeholder="estimated number of serving" name ="nos" class="form-control">
             <p class="help-block"></p>
           </div>
         </div>
@@ -201,7 +201,23 @@
           
         </div>
     
+    <div class="control-group">
+
+          <!-- Prepended text-->
+          
+          <label class="control-label">Image Links</label>
     
+          <div class="inline controls" >
+            <input type="text" name="images[]" placeholder="tag" id="tag" size="60"><input type="button" value="Add" onclick="ImgAddOrRemove(this)">
+            <!--<div class="col-xs-6 inline " id="input_tag">  
+            <input class="form-control" placeholder="tag"  type="text" >
+            </div>
+            
+            <input type="button" class="btn btn-success" id="addTag" onclick="add(this)" value ="Add">
+            <p class="help-block"></p>-->
+          </div>
+          
+        </div>
 
     <div class="control-group">
 
@@ -229,19 +245,19 @@
   <div class="control-group">
 
           <!-- Textarea -->
-          <label class="control-label">Images(copy the text into description)</label>
+          
+    </div>
+  <div class="control-group">
+          <label class="control-label">Images Preview(copy the link into image links)</label>
           <div class="controls">
-            <div class="textarea" >
-                  <textarea type="" id = "preview" class="form-control" rows="0"> </textarea>
+            <div id = "preview">
+                  
             </div>
             
             
             
          
         </div>
-    </div>
-  <div class="control-group">
-
           <!-- Textarea -->
           <form action="imgupload.php" method="post" enctype="multipart/form-data" id="imageuploadFrom" class="inline">
 
@@ -256,7 +272,14 @@
             </body>
 
 <script type="text/javascript">
-
+function check()
+{
+if(document.form.rtitle.value.length==0){
+  alert("Recipe title cannot be null!");
+  document.form.rtitle.focus();
+  return false;
+  }
+}
 
 
 Array.prototype.remove = function() {
@@ -351,6 +374,40 @@ Array.prototype.remove = function() {
 
     }
 
+function ImgAddOrRemove(btn) {
+  var add = btn.value == "Add";
+        var div = btn.parentNode, list = div.parentNode;
+        //console.log(document.getElementById('tag').value);
+        
+        
+        if (add) {
+           var txt = div.getElementsByTagName('input')[0];
+           if (txt.value == '') {
+               alert("please input tag!");
+               return;
+           }
+
+            for (i = 0; i < added_tag.length; i++) {
+              if (txt.value == added_tag[i]) {
+                alert("duplicate tag!");
+                return;
+              }
+            }
+            
+
+            added_tag.push(txt.value);
+            div = div.cloneNode(true);
+            var inputs = div.getElementsByTagName('input'); inputs[inputs.length - 1].value = 'Delete';
+            list.appendChild(div);
+            txt.value ='';
+            
+
+        }
+        else {
+          list.removeChild(div);
+          added_tag.remove(div.getElementsByTagName('input')[0].value);
+        }
+}
 
 function getCursortPosition (ctrl) {//获取光标位置函数
     var CaretPos = 0;    // IE Support

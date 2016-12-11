@@ -1,4 +1,6 @@
 <?php
+date_default_timezone_set('US/Eastern');
+
 session_start();
 if (!$connection = @ mysql_connect("localhost", "root", ""))
   die("Cannot connect" . mysql_error());
@@ -17,8 +19,10 @@ $tags = $_POST['tags'];
 if(isset($tags)){
   $len=count($tags);
   for($x=0;$x<$len;$x++) {
-    $query = "INSERT INTO Tag values ('".$rid."','".$tags[$x]."')";
-	$result = mysql_query($query) or die('Query failed: ' . mysql_error());
+    if ($tags[$x] != '') {
+      $query = "INSERT INTO Tag values ('".$rid."','".$tags[$x]."')";
+	   $result = mysql_query($query) or die('Query failed: ' . mysql_error());
+    }
   }
 }
 
@@ -28,18 +32,34 @@ $units = $_POST['units'];
 if(isset($inames)){
   $len=count($inames);
   for($x=0;$x<$len;$x++) {
+    if ($inames[$x] != '') {
     $query = "INSERT INTO Ingredient values ('".$rid."','".$inames[$x]."','".$iqs[$x]."','".$units[$x]."')";
 	$result = mysql_query($query) or die('Query failed: ' . mysql_error());
+}
+}
+  }
+
+
+$images = $_POST['images'];
+if(isset($images)){
+  $len=count($images);
+  for($x=0;$x<$len;$x++) {
+    if ($images[$x] != '') {
+    $query = "INSERT INTO recipe_img values (0,'".$rid."','".$images[$x]."')";
+    $result = mysql_query($query) or die('Query failed: ' . mysql_error());
+    }
   }
 }
 //echo $units[0];
-echo "<script type='text/javascript'>";  
-echo "alert(create recipe successfully!);";
-echo "window.location.href='/cookzilla/new_recipe.php'";
-echo "</script>";  
+
 // Free resultset
-mysql_free_result($result);
+
 
 // Closing connection
-mysql_close($connection);
+mysql_close($connection);  
+
+echo "<script type='text/javascript'>";  
+echo "alert('create recipe successfully! Loading back to frong page...');";
+echo "window.location.href='/cookzilla/index.php'";
+echo "</script>";  
 ?>

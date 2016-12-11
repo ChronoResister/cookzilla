@@ -67,13 +67,14 @@
 $gid = $_GET["gid"];
 //$uname = $_SESSION['uname'];
 //echo $uname;
-$con = mysql_connect("127.0.0.1","root",""); 
+//$con = mysql_connect("127.0.0.1","root",""); 
+$con = mysql_connect("localhost","root",""); 
 if (!$con)
   {
   die('Could not connect: ' . mysql_error());
   }
 
-mysql_select_db("cookzillav3", $con);
+mysql_select_db("cookzilla", $con);
 
 
 //<h1> Joined Group </h1>
