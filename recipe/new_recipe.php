@@ -5,22 +5,32 @@
   
 
 
-	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="../css/bootstrap.min.css" rel="stylesheet">
 	<!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>-->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
+  <script src="../js/bootstrap.min.js"></script>
 
  
 
-  <script src="js/jquery-1.10.2.min.js"></script>
-  <script src="js/jquery.form.js"></script>
+  <script src="../js/jquery-1.10.2.min.js"></script>
+  <script src="../js/jquery.form.js"></script>
  <script type="text/javascript">
+
+
    $(document).ready(function(){
-  
+  $("input#tag").on({
+  keydown: function(e) {
+    if (e.which === 32)
+      return false;
+  },
+  change: function() {
+    this.value = this.value.replace(/\s/g, "");
+  }
+});
   
   $('#btn').click(function(){
 
-    $('#preview').fadeIn(400).html('<img src="loader.gif" align="absmiddle">&nbsp;<span class="loading">sending</span>');
+    $('#preview').fadeIn(400).html('<img src="../loader.gif" align="absmiddle">&nbsp;<span class="loading">sending</span>');
     
     $("#imageuploadFrom").ajaxSubmit({
       
@@ -173,7 +183,7 @@
     
           <div class="inline controls" >
             <input type="text" name="inames[]" placeholder="Ingredient name" id="iname">
-            <input type="text" name="iqs[]" placeholder="quantity" id="iq">
+            <input type="number" name="iqs[]" placeholder="quantity" id="iq">
             unit:
             <select class="input-xlarge" name="units[]">
             <option value ="1">piece</option>
@@ -208,7 +218,7 @@
           <label class="control-label">Image Links</label>
     
           <div class="inline controls" >
-            <input type="text" name="images[]" placeholder="tag" id="tag" size="60"><input type="button" value="Add" onclick="ImgAddOrRemove(this)">
+            <input type="text" name="images[]" placeholder="link" id="tag" size="60"><input type="button" value="Add" onclick="ImgAddOrRemove(this)">
             <!--<div class="col-xs-6 inline " id="input_tag">  
             <input class="form-control" placeholder="tag"  type="text" >
             </div>
@@ -259,7 +269,7 @@
          
         </div>
           <!-- Textarea -->
-          <form action="imgupload.php" method="post" enctype="multipart/form-data" id="imageuploadFrom" class="inline">
+          <form action="../imgupload.php" method="post" enctype="multipart/form-data" id="imageuploadFrom" class="inline">
 
 <input name="image" type="file" class="image"><br/>
 
@@ -423,6 +433,6 @@ function getCursortPosition (ctrl) {//获取光标位置函数
     return (CaretPos);
 }
 </script>
-<script language="JavaScript" type="text/javascript" src="ajaxfileupload.js"></script>
+<script language="JavaScript" type="text/javascript" src="../ajaxfileupload.js"></script>
 
 </html>

@@ -114,7 +114,7 @@ create table event_report(
 auto_increment = 10000;
 
 
-
+create table user_visited( uname varchar(40), recipeId int, vtime datetime, PRIMARY key (uname, recipeId, vtime), FOREIGN key (uname) REFERENCES users(uname), FOREIGN key (recipeId) REFERENCES recipe(recipeId) );
 
 
 

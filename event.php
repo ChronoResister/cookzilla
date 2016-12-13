@@ -62,7 +62,16 @@
 
 <br>
 </br>
-
+div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span10">
+      aaa
+    </div>
+    <div class="span2">
+     bbb
+    </div>
+  </div>
+</div>
 <?php
 $gid = $_GET["gid"];
 //$uname = $_SESSION['uname'];

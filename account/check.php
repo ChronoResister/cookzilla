@@ -1,7 +1,7 @@
 <?php
 #require 'authentication.inc';
 #require 'db.inc';
-
+session_start();
 if (!$connection = mysql_connect("127.0.0.1", "root", ""))
   die("Cannot connect" . mysql_error());
 mysql_select_db('cookzilla') or die('Could not select database' . mysql_error());
@@ -16,10 +16,12 @@ $query = "INSERT INTO Users values ('".$uname."','".$nickname."','".$password."'
 
 $result = mysql_query($query) or die('Query failed: ' . mysql_error());
 
+$_SESSION['uname']=$uname;
+$_SESSION['nickname']=$row[0];
 echo "<script type='text/javascript'>";  
-echo "alert('You have signed up! Loading into sign in page...');";
-echo "window.location.href='/cookzilla/signin.php'";
-echo "</script>";  
+echo "alert('Sign up successfully. Sign in and loading back to front page...');";
+echo "window.location.href='/cookzilla/index.php'";
+echo "</script>";   
 // Free resultset
 mysql_free_result($result);
 

@@ -22,9 +22,21 @@ if(isset($tags)){
     if ($tags[$x] != '') {
       $query = "INSERT INTO Tag values ('".$rid."','".$tags[$x]."')";
 	   $result = mysql_query($query) or die('Query failed: ' . mysql_error());
+     $rrr = "SELECT recipeId from tag where rtag = '$tags[$x]'";
+     $related = mysql_query($rrr) or die('Query failed: ' . mysql_error());
+     while($row = mysql_fetch_array($related)) {
+      $reid = $row['recipeId'];
+//       echo "<script type='text/javascript'>";  
+// echo "alert('$reid');";
+// echo "window.location.href='/cookzilla/index.php'";
+// echo "</script>"; 
+       mysql_query("INSERT INTO related values($rid, $reid)") ;
+       mysql_query("INSERT INTO related values($reid, $rid)") ;
+     }
     }
   }
 }
+
 
 $inames = $_POST['inames'];
 $iqs = $_POST['iqs'];

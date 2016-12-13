@@ -22,7 +22,7 @@ $row = mysql_fetch_row($result);
 $_SESSION['uname']=$uname;
 $_SESSION['nickname']=$row[0];
 echo "<script type='text/javascript'>";  
-echo "alert('Sign in successfully. Loading back to frong page...');";
+echo "alert('Sign in successfully. Loading back to front page...');";
 echo "window.location.href='/cookzilla/index.php'";
 echo "</script>";  
 }

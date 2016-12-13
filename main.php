@@ -32,7 +32,7 @@
 
 
               <li id="subscribe">
-                <a href="/subscribe/"><font color="orange">Recipe</font></a>
+                <a href="/cookzilla/recipe/view_recipe.php?sort=createdat"><font color="orange">Recipe</font></a>
               </li>
 
               <li id="subscribe">
@@ -74,7 +74,7 @@
                 <li class="divider"></li>
                 <li><a href="/submissions/">My Notifications</a></li>
                 <li class="divider"></li>
-                <li><a href="logout.php">Sign out</a></li>
+                <li><a href="/cookzilla/account/logout.php">Sign out</a></li>
               </ul>
               </li>
             </ul>
