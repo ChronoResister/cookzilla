@@ -80,9 +80,9 @@ mysql_select_db("cookzilla", $con);
 
 
 echo "<h2 style= \"margin-left:40px\"> Joined Group Events</h2>";
-$result2 = mysql_query("SELECT E.eid,E.ename,E.creater,E.starttime,E.endtime,E.max_number
-FROM user_event E,rsvp
-WHERE E.gid = '$gid' and rsvp.eid = E.eid and rsvp.uname = '$uname'");
+$result2 = mysql_query("SELECT E.eid,E.ename,r.nickname,E.starttime
+FROM user_event E, rsvp p, users r
+WHERE E.gid = '$gid' and p.eid = E.eid and p.uname = '$uname' and e.creater = r.nickname") or die('Query failed: ' . mysql_error());
 
 echo "
 <style>
@@ -187,25 +187,24 @@ table tr:hover td{
 </style>
 <table>
 <tr>
-<th>EventID</th>
-<th>Eventname</th>
+
+<th>Event Name</th>
 <th>Creater</th>
-<th>Starttime</th>
-<th>Endtime</th>
-<th>MaxNumber</th>
+<th>Created At</th>
+
 </tr>";
 
 while($row = mysql_fetch_array($result2))
   {
   echo "<tr>";
-  echo "<td>" . $row['eid'] . "</td>";
+  //echo "<td>" . $row['eid'] . "</td>";
   echo "<td><a href=\"report.php?eid=".urlencode($row['eid'])."\">".$row['ename']."</a>"."</td>";
   
-  echo "<td>" . $row['creater'] . "</td>";
+  echo "<td>" . $row['nickname'] . "</td>";
   echo "<td>" . $row['starttime'] . "</td>";
-  echo "<td>" . $row['endtime'] . "</td>";
-  echo "<td>" . $row['max_number'] . "</td>";
-  //echo "<td>" . $row['currentMember'] . "</td>";
+  //echo "<td>" . $row['endtime'] . "</td>";
+ // echo "<td>" . $row['max_number'] . "</td>";
+  
   echo "</tr>";
   }
 echo "</table>";
@@ -215,10 +214,10 @@ echo '<br>';
 
 echo "<h2 style= \"margin-left:40px\"> Other Group Events</h2>";
 $result1 = mysql_query("
-  SELECT E.eid,E.ename,E.creater,E.starttime,E.endtime,E.max_number, count(rsvp.eid) as currentMember
-FROM user_event E,rsvp
-WHERE  E.eid = rsvp.eid and E.gid = '$gid' 
-GROUP BY rsvp.eid");
+  SELECT E.eid,E.ename,r.nickname,E.starttime, count(p.eid) as currentMember
+FROM user_event E,rsvp p, users r
+WHERE  E.eid = p.eid and E.gid = '$gid' and r.uname = e.creater
+GROUP BY p.eid") or die ('Query failed: ' . mysql_error());
 
 echo "
 <style>
@@ -323,27 +322,28 @@ table tr:hover td{
 </style>
 <table border='1'>
 <tr>
-<th>EventID</th>
+
 <th>Eventname</th>
 <th>Creater</th>
 <th>Starttime</th>
-<th>Endtime</th>
-<th>MaxNumber</th>
+
 <th>CurrentMember</th>
 </tr>";
 
 while($row = mysql_fetch_array($result1))
   {
   echo "<tr>";
-  echo "<td>" . $row['eid'] . "</td>";
+  //echo "<td>" . $row['eid'] . "</td>";
   echo "<td><a href=\"report.php?eid=".urlencode($row['eid'])."\">".$row['ename']."</a>"."</td>";
   
-  echo "<td>" . $row['creater'] . "</td>";
+  echo "<td>" . $row['nickname'] . "</td>";
   echo "<td>" . $row['starttime'] . "</td>";
-  echo "<td>" . $row['endtime'] . "</td>";
-  echo "<td>" . $row['max_number'] . "</td>";
+  //echo "<td>" . $row['endtime'] . "</td>";
+  //echo "<td>" . $row['max_number'] . "</td>";
   echo "<td>" . $row['currentMember'] . "</td>";
+  echo "<td><a class=\"btn btn-primary\" href=\"/cookzilla/rsvp2.php?eid=". $row['eid'] ."\">RSVP</a></td>";
   echo "</tr>";
+
   }
 echo "</table>";
 
