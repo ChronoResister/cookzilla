@@ -63,37 +63,38 @@
 <br>
 </br>
 
+
+
+
 <?php
 #require 'authentication.inc';
 #require 'db.inc';
 session_start();
 $uname = $_SESSION['uname'];
+$gid = $_GET['gid'];
+echo $gid;
+echo $uname;
 
 if (!$connection = mysql_connect("127.0.0.1", "root", ""))
   die("Cannot connect" . mysql_error());
 mysql_select_db('cookzilla') or die('Could not select database' . mysql_error());
-$eid = (int)$_POST['eid'];
-$rtext = $_POST['rtext'];
-//echo $eid;
-//echo $rtext;
-//echo $uname;
-echo $uname;
+#echo $kw;
+$idd = 1;
+$query = "INSERT INTO group_mem values ($gid,'$uname')";
 
-$ertime = '1000-01-01 00:00:01';
-//(erId,uname,eid,rtext,ertime)
-$query = "INSERT INTO event_report values (0,'$uname',$eid,'$rtext',1000-01-01 00:00:00)";
-#echo'ok';
 
 $result = mysql_query($query) or die('Query failed: ' . mysql_error());
 
-echo "success!"
-/*echo "<script type='text/javascript'>";  
-echo "alert('You have signed up! Loading into sign in page...');";
-echo "window.location.href='/cookzilla/signin.php'";
-echo "</script>";  */
+echo "success";
+echo "<script type='text/javascript'>";  
+echo "alert('You have Joined group $gid! Loading into group page...');";
+echo "window.location.href='/cookzilla/group.php'";
+echo "</script>";  
 // Free resultset
-//mysql_free_result($result);
+mysql_free_result($result);
 
 // Closing connection
 mysql_close($connection);
 ?>
+
+

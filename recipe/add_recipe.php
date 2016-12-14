@@ -2,7 +2,7 @@
 date_default_timezone_set('US/Eastern');
 
 session_start();
-if (!$connection = @ mysql_connect("localhost", "root", ""))
+if (!$connection = @ mysql_connect("127.0.0.1", "root", ""))
   die("Cannot connect" . mysql_error());
 mysql_select_db('cookzilla') or die('Could not select database' . mysql_error());
 $uname = $_SESSION['uname'];

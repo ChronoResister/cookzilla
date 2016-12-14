@@ -80,9 +80,16 @@ mysql_select_db("cookzilla", $con);
 
 
 echo "<h2 style= \"margin-left:40px\"> Joined Group Events</h2>";
-$result2 = mysql_query("SELECT E.eid,E.ename,r.nickname,E.starttime
+$result2 = mysql_query("SELECT E.eid,E.ename,E.creater,E.starttime,E.endtime,E.max_number FROM user_event E,rsvp WHERE E.gid = '$gid' and rsvp.eid = E.eid and rsvp.uname = '$uname'") or die('Query failed: ' . mysql_error());
+/*
+SELECT E.eid,E.ename,E.creater,E.starttime,E.endtime,E.max_number
+FROM user_event E,rsvp
+WHERE E.gid = '$gid' and rsvp.eid = E.eid and rsvp.uname = '$uname'
+
+SELECT E.eid,E.ename,r.nickname,E.starttime
 FROM user_event E, rsvp p, users r
-WHERE E.gid = '$gid' and p.eid = E.eid and p.uname = '$uname' and e.creater = r.nickname") or die('Query failed: ' . mysql_error());
+WHERE E.gid = '$gid' and p.eid = E.eid and p.uname = '$uname' and e.creater = r.nickname
+*/
 
 echo "
 <style>
@@ -200,7 +207,7 @@ while($row = mysql_fetch_array($result2))
   //echo "<td>" . $row['eid'] . "</td>";
   echo "<td><a href=\"report.php?eid=".urlencode($row['eid'])."\">".$row['ename']."</a>"."</td>";
   
-  echo "<td>" . $row['nickname'] . "</td>";
+  echo "<td>" . $row['creater'] . "</td>";
   echo "<td>" . $row['starttime'] . "</td>";
   //echo "<td>" . $row['endtime'] . "</td>";
  // echo "<td>" . $row['max_number'] . "</td>";
@@ -213,11 +220,15 @@ echo '<br>';
 //<h1> Joined Group </h1>
 
 echo "<h2 style= \"margin-left:40px\"> Other Group Events</h2>";
-$result1 = mysql_query("
-  SELECT E.eid,E.ename,r.nickname,E.starttime, count(p.eid) as currentMember
+$result1 = mysql_query(
+  "SELECT E.eid,E.ename,r.nickname,E.starttime, count(p.eid) as currentMember
 FROM user_event E,rsvp p, users r
-WHERE  E.eid = p.eid and E.gid = '$gid' and r.uname = e.creater
-GROUP BY p.eid") or die ('Query failed: ' . mysql_error());
+WHERE  E.eid = p.eid and E.gid = '$gid' and r.uname = e.creater and E.eid not in
+(SELECT E.eid FROM user_event E,rsvp WHERE E.gid = '$gid' and rsvp.eid = E.eid and rsvp.uname = '$uname')
+GROUP BY p.eid"
+
+
+) or die ('Query failed: ' . mysql_error());
 
 echo "
 <style>
@@ -342,6 +353,8 @@ while($row = mysql_fetch_array($result1))
   //echo "<td>" . $row['max_number'] . "</td>";
   echo "<td>" . $row['currentMember'] . "</td>";
   echo "<td><a class=\"btn btn-primary\" href=\"/cookzilla/rsvp2.php?eid=". $row['eid'] ."\">RSVP</a></td>";
+
+
   echo "</tr>";
 
   }
@@ -375,5 +388,9 @@ mysql_close($con);
 
 <div class="navbar-form navbar-left">
               <a class="btn btn-primary" href="/cookzilla/rsvp.php">Join Events</a>        
+</div>
+
+<div class="navbar-form navbar-left">
+              <a class="btn btn-primary" href="/cookzilla/createEvent.php">Create Events</a>        
 </div>
 

@@ -60,40 +60,45 @@
         </div>
       </div>
 
-<br>
-</br>
 
-<?php
-#require 'authentication.inc';
-#require 'db.inc';
-session_start();
-$uname = $_SESSION['uname'];
+     <div class="container">
+  <form class="form-signin" method="POST" action="/cookzilla/createGroup2.php">
+    <h3 class="form-signin-heading">Create New Event</h3>
+    <hr>
+    <input type="hidden" name="csrfmiddlewaretoken" value="ATJpOoTKlFZIZKALOpdr6BvmjWuLNmECMKelyt0vqOt93EPBkPydgpa0nwoLg8uZ">
+    <div  id = "profile"><input id="profile" name="ename" placeholder="EventName" type="text" required="" class="form-control"></div>
+    <div  id = "profile"><input id="profile" name="gname" placeholder="GroupName" type="text" required="" class="form-control"></div>
+    
+    
+    <br>    
 
-if (!$connection = mysql_connect("127.0.0.1", "root", ""))
-  die("Cannot connect" . mysql_error());
-mysql_select_db('cookzilla') or die('Could not select database' . mysql_error());
-$eid = (int)$_POST['eid'];
-$rtext = $_POST['rtext'];
-//echo $eid;
-//echo $rtext;
-//echo $uname;
-echo $uname;
+    <button class="btn btn-primary" type="submit">Create</button>
+ <!--   
+     <form class="form-signin" method="POST" action="/accounts/login/">
+    <h3 class="form-signin-heading">Sign In</h3>
+    <hr>
+    <input type="hidden" name="csrfmiddlewaretoken" value="rXFdSRXruxzUciyOFoXUWPdYKK2VjNKZDOa9CW4czG3lgcNEbOiG6DSCOkWVMzAm">
+    <div class="form-group"><input autofocus="autofocus" id="id_login" name="login" placeholder="User Id" type="text" required="" class="form-control"></div>
+    <div class="form-group"><input id="id_password" name="password" placeholder="Password" type="password" required="" class="form-control"></div>
+    <label class="form-group"><input id="id_remember" name="remember" type="checkbox">Remember Me</label>
+    <div class="form-group">
+      
+      <button class="btn btn-primary" type="submit">Sign In</button>
+      
+    </div>
+    
+      <hr>
+      
+    
+  </form>
+  -->
 
-$ertime = '1000-01-01 00:00:01';
-//(erId,uname,eid,rtext,ertime)
-$query = "INSERT INTO event_report values (0,'$uname',$eid,'$rtext',1000-01-01 00:00:00)";
-#echo'ok';
 
-$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 
-echo "success!"
-/*echo "<script type='text/javascript'>";  
-echo "alert('You have signed up! Loading into sign in page...');";
-echo "window.location.href='/cookzilla/signin.php'";
-echo "</script>";  */
-// Free resultset
-//mysql_free_result($result);
+        </ul>
+      </div>
+    
+  </form>
+</div>
+     </body>
 
-// Closing connection
-mysql_close($connection);
-?>

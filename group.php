@@ -384,7 +384,7 @@ echo '<br>';
 
 </div>
 <div id='right'>
-<h2 style= \"margin-left:40px\">All Groups</h2>
+<h2 style= \"margin-left:40px\">Other Groups</h2>
 <input type="text" class="form-control col-xs-4" id="kw"  placeholder="Search keyword">
                 <span class="input-group-btn">
                     <button class="btn btn-default" type="button" onclick="filter()"><span class="glyphicon glyphicon-search"></span></button>
@@ -399,7 +399,14 @@ if (!$con)
 mysql_select_db("cookzilla", $con);
 //<h1> All  Groups <h1>
 //echo "<h2 style= \"margin-left:40px\">All Groups</h2>";
-$result1 = mysql_query("SELECT g.gid, g.gname, u.nickname FROM user_group g, users u where g.creater = u.uname");
+$result1 = mysql_query("SELECT g.gid, g.gname, u.nickname 
+  FROM user_group g, users u where g.creater = u.uname and g.gname not in
+  (SELECT U.gname FROM user_group U, group_mem G, users r
+WHERE U.gid = G.gid and G.uname = '$uname' and u.creater = r.uname)");
+
+//SELECT u.gid, U.gname , r.nickname 
+//FROM user_group U, group_mem G, users r
+//WHERE U.gid = G.gid and G.uname = '$uname' and u.creater = r.uname
 
 echo "
 <style>
