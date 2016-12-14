@@ -1,13 +1,69 @@
+<html>
+
 <head>
   <title>cookzilla</title>
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    #profile{
+  
 
-      max-height: 200;
+
+  <link href="../cookzilla/css/bootstrap.min.css" rel="stylesheet">
+  <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>-->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="../cookzilla/js/bootstrap.min.js"></script>
+
+ 
+
+  <script src="../cookzilla/js/jquery-1.10.2.min.js"></script>
+  <script src="../cookzilla/js/jquery.form.js"></script>
+ <script type="text/javascript">
+
+
+   $(document).ready(function(){
+  $("input#tag").on({
+  keydown: function(e) {
+    if (e.which === 32)
+      return false;
+  },
+  change: function() {
+    this.value = this.value.replace(/\s/g, "");
+  }
+});
+  
+  $('#btn').click(function(){
+
+    $('#preview').fadeIn(400).html('<img src="../cookzilla/loader.gif" align="absmiddle">&nbsp;<span class="loading">sending</span>');
+    
+    $("#imageuploadFrom").ajaxSubmit({
+      
+      target: '#preview'
+            
+    });
+    
+    $('#imageuploadFrom').clearForm()
+    
+    
+  })
+
+
+});
+
+ </script>
+
+
+  <style>
+    .navbar.navbar-inverse.navbar-extra{
+      color: orange;
     }
+.col-center-block {  
+    float: none;  
+    display: block;  
+    margin-left: auto;  
+    margin-right: auto;  
+}  
+#ingredient-div.inline{float:left;}
+  
   </style>
 </head>
+
 <body>
 <div class="navbar navbar-inverse navbar-extra" >
         <div class="container">
@@ -44,61 +100,308 @@
               
             </ul>
             
-            <div class="navbar-form navbar-right">
-              <a class="btn btn-primary" href="/cookzilla/signup.php">Sign up</a>
-              <a class="btn btn-default" href="/cookzilla/signin.php">Sign in</a>
+            <div class="dropdown">
+            <ul id="navbar-right" class="nav navbar-nav navbar-right">
+              <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                
+               <?php
+        session_start();
+         
+        echo $_SESSION['nickname']. "(". $_SESSION['uname'].")";
+        $_SESSION['eid'] = $_GET['eid'];
+  //       echo "<script type='text/javascript'>";  
+ // echo "alert($_SESSION['rid']);";
+ // echo "</script>"; 
+      ?>
+
+                      <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="/profile/">My Recipe</a></li>
+                <li><a href="/subscription/">My Review</a></li>
+                <li><a href="/subscription/">My Group</a></li>
+                <li><a href="/subscription/">My Event</a></li>
+                <li><a href="/subscription/">My Report</a></li>
+                <li class="divider"></li>
+                <li><a href="/submissions/">My Notifications</a></li>
+                <li class="divider"></li>
+                <li><a href="logout.php">Sign out</a></li>
+              </ul>
+              </li>
+            </ul>
+            </div>
+</div>
+</div>
+</div>
+ <div class="col-xs-6  col-center-block">  
+ 
+  <form class="form-horizontal" onsubmit="return check()" action="add_report.php" method="post" name="form">
+    <fieldset>
+      <div id="legend" class="">
+        
+      </div>
+    <div class="control-group">
+
+          <!-- Text input-->
+          <h4>Event Name: <?php 
+          $con = mysql_connect("127.0.0.1","root",""); 
+  if (!$con)
+  {
+  die('Could not connect: ' . mysql_error());
+  }
+
+
+mysql_select_db("cookzilla", $con);
+$eid = $_GET['eid'];
+  $res = mysql_query("SELECT ename from user_event where eid = 
+    '$eid'") or die('Query failed: ' . mysql_error());
+$row = mysql_fetch_array($res);
+
+          echo $row[0]; ?>
+            
+          </h4>
+          <label class="control-label" for="input01">Report Title</label>
+          <div class="controls">
+            <input class="form-control" type="text" name="ertitle" placeholder="title of report" >
+            <p class="help-block"></p>
+          </div>
+        </div>
+
+   
+
+    
+
+    
+    
+    <div class="control-group">
+
+          <!-- Prepended text-->
+          
+          <label class="control-label">Image Links</label>
+    
+          <div class="inline controls" >
+            <input type="text" name="images[]" placeholder="link" id="tag" size="60"><input type="button" value="Add" onclick="ImgAddOrRemove(this)">
+            <!--<div class="col-xs-6 inline " id="input_tag">  
+            <input class="form-control" placeholder="tag"  type="text" >
             </div>
             
-            <!--
-            <form class="navbar-form pull-right">
-              <input class="col-md-2" type="text" placeholder="Email">
-              <input class="col-md-2" type="password" placeholder="Password">
-              <button type="submit" class="btn">Sign in</button>
-            </form>
-            -->
-          </div><!--/.navbar-collapse -->
+            <input type="button" class="btn btn-success" id="addTag" onclick="add(this)" value ="Add">
+            <p class="help-block"></p>-->
+          </div>
+          
         </div>
-      </div>
 
+    <div class="control-group">
 
-     <div class="container">
-  <form class="form-signin" method="POST" action="/cookzilla/createreport2.php">
-    <h3 class="form-signin-heading">Write Report</h3>
-    <hr>
-    <input type="hidden" name="csrfmiddlewaretoken" value="ATJpOoTKlFZIZKALOpdr6BvmjWuLNmECMKelyt0vqOt93EPBkPydgpa0nwoLg8uZ">
-    <div class="form-group"><input autofocus="autofocus" id="user_id" maxlength="150" minlength="1" name="eid" placeholder="EventID" type="text" required="" class="form-control"></div>
-    <div  id = "profile"><input id="profile" name="rtext" placeholder="ReportText" type="text" required="" class="form-control"></div>
-    
-    
-    <br>    
-
-    <button class="btn btn-primary" type="submit">Submit</button>
- <!--   
-     <form class="form-signin" method="POST" action="/accounts/login/">
-    <h3 class="form-signin-heading">Sign In</h3>
-    <hr>
-    <input type="hidden" name="csrfmiddlewaretoken" value="rXFdSRXruxzUciyOFoXUWPdYKK2VjNKZDOa9CW4czG3lgcNEbOiG6DSCOkWVMzAm">
-    <div class="form-group"><input autofocus="autofocus" id="id_login" name="login" placeholder="User Id" type="text" required="" class="form-control"></div>
-    <div class="form-group"><input id="id_password" name="password" placeholder="Password" type="password" required="" class="form-control"></div>
-    <label class="form-group"><input id="id_remember" name="remember" type="checkbox">Remember Me</label>
-    <div class="form-group">
-      
-      <button class="btn btn-primary" type="submit">Sign In</button>
-      
+          <!-- Textarea -->
+          <label class="control-label">Text</label>
+          <div class="controls">
+            <div class="textarea" >
+                  <textarea name ="ertext" type="" class="form-control" rows="10"> </textarea>
+            </div>
+            
+            
+            
+         
+        </div>
     </div>
+
     
-      <hr>
-      
+
     
+
+    <div class="control-group">
+        <button type="submit" class="btn center-block">Submit</button>
+    </div>
+    </fieldset>
   </form>
-  -->
+  <div class="control-group">
 
+          <!-- Textarea -->
+          
+    </div>
+  <div class="control-group">
+          <label class="control-label">Images Preview(copy the link into image links)</label>
+          <div class="controls">
+            <div id = "preview">
+                  
+            </div>
+            
+            
+            
+         
+        </div>
+          <!-- Textarea -->
+          <form action="../cookzilla/imgupload.php" method="post" enctype="multipart/form-data" id="imageuploadFrom" class="inline">
 
+<input name="image" type="file" class="image"><br/>
 
-        </ul>
-      </div>
-    
-  </form>
+<input type="button" value="upload" id="btn" class="btn">
+
+</form>
+    </div>
 </div>
-     </body>
 
+            </body>
+
+<script type="text/javascript">
+function check()
+{
+if(document.form.wtitle.value.length==0){
+  alert("Recipe title cannot be null!");
+  document.form.wtitle.focus();
+  return false;
+  }
+if (document.form.rating.value.indexOf(".")>-1) {
+  alert("rating must be integer!");
+  document.form.rating.focus();
+  return false;
+}
+}
+
+
+Array.prototype.remove = function() {
+    var what, a = arguments, L = a.length, ax;
+    while (L && this.length) {
+        what = a[--L];
+        while ((ax = this.indexOf(what)) !== -1) {
+            this.splice(ax, 1);
+        }
+    }
+    return this;
+};
+
+
+    var img_cnt = 0;
+    var added_tag = [];
+    var added_in = [];
+
+    function IngAddOrRemove(btn) {
+        var add = btn.value == "Add";
+        var div = btn.parentNode, list = div.parentNode;
+        //console.log(document.getElementById('tag').value);
+        
+        
+        if (add) {
+           var txt = div.getElementsByTagName('input')[0];
+           var q = div.getElementsByTagName('input')[1];
+           
+           if (txt.value == '' || q.value == '') {
+               alert("ingredient or quantity is null!");
+               return;
+           }
+            for (i = 0; i < added_in.length; i++) {
+              if (txt.value == added_in[i]) {
+                alert("duplicate Ingredient!");
+                return;
+              }
+            }
+            
+
+            added_in.push(txt.value);
+            div = div.cloneNode(true);
+            var inputs = div.getElementsByTagName('input'); inputs[inputs.length - 1].value = 'Delete';
+            //inputs[2].value = s.value;
+            list.appendChild(div);
+            txt.value ='';
+            q.value = '';
+
+        }
+        else {
+          list.removeChild(div);
+          added_in.remove(div.getElementsByTagName('input')[0].value);
+        }
+          
+
+    }
+
+    function TagAddOrRemove(btn) {
+        var add = btn.value == "Add";
+        var div = btn.parentNode, list = div.parentNode;
+        //console.log(document.getElementById('tag').value);
+        
+        
+        if (add) {
+           var txt = div.getElementsByTagName('input')[0];
+           if (txt.value == '') {
+               alert("please input tag!");
+               return;
+           }
+
+            for (i = 0; i < added_tag.length; i++) {
+              if (txt.value == added_tag[i]) {
+                alert("duplicate tag!");
+                return;
+              }
+            }
+            
+
+            added_tag.push(txt.value);
+            div = div.cloneNode(true);
+            var inputs = div.getElementsByTagName('input'); inputs[inputs.length - 1].value = 'Delete';
+            list.appendChild(div);
+            txt.value ='';
+            
+
+        }
+        else {
+          list.removeChild(div);
+          added_tag.remove(div.getElementsByTagName('input')[0].value);
+        }
+          
+
+    }
+
+function ImgAddOrRemove(btn) {
+  var add = btn.value == "Add";
+        var div = btn.parentNode, list = div.parentNode;
+        //console.log(document.getElementById('tag').value);
+        
+        
+        if (add) {
+           var txt = div.getElementsByTagName('input')[0];
+           if (txt.value == '') {
+               alert("please input tag!");
+               return;
+           }
+
+            for (i = 0; i < added_tag.length; i++) {
+              if (txt.value == added_tag[i]) {
+                alert("duplicate tag!");
+                return;
+              }
+            }
+            
+
+            added_tag.push(txt.value);
+            div = div.cloneNode(true);
+            var inputs = div.getElementsByTagName('input'); inputs[inputs.length - 1].value = 'Delete';
+            list.appendChild(div);
+            txt.value ='';
+            
+
+        }
+        else {
+          list.removeChild(div);
+          added_tag.remove(div.getElementsByTagName('input')[0].value);
+        }
+}
+
+function getCursortPosition (ctrl) {//获取光标位置函数
+    var CaretPos = 0;    // IE Support
+    if (document.selection) {
+    ctrl.focus ();
+        var Sel = document.selection.createRange ();
+        Sel.moveStart ('character', -ctrl.value.length);
+        CaretPos = Sel.text.length;
+    }
+    // Firefox support
+    else if (ctrl.selectionStart || ctrl.selectionStart == '0')
+        CaretPos = ctrl.selectionStart;
+    return (CaretPos);
+}
+</script>
+<script language="JavaScript" type="text/javascript" src="../cookzilla/ajaxfileupload.js"></script>
+
+</html>

@@ -67,7 +67,7 @@ session_start();
 $uname = $_SESSION['uname'];
 //echo $uname;
 $eid = $_GET["eid"];
-echo $eid;
+
 //$uname = $_SESSION['uname'];
 //echo $uname;
 $con = mysql_connect("127.0.0.1","root",""); 
@@ -79,10 +79,13 @@ if (!$con)
 mysql_select_db("cookzilla", $con);
 
 
-echo "<h2 style= \"margin-left:40px\"> Group reports </h2>";
-$result2 = mysql_query("SELECT E.eid,E.ename,R.uname,R.rtext
-FROM user_event E, event_report R
-WHERE R.eid = E.eid and E.eid = '$eid' ");
+echo "<h2 style= \"margin-left:40px\"> Event reports </h2>";
+$rrr = mysql_query("SELECT ename from user_event where eid = '$eid' ");
+echo "<h2 style= \"margin-left:40px\"> Event Title: ".
+mysql_fetch_array($rrr)[0] . "</h2>";
+$result2 = mysql_query("SELECT r.erId, r.ertitle, u.nickname, r.ertime
+FROM user_event E, event_report R, users u
+WHERE R.eid = E.eid and E.eid = '$eid' and r.uname = u.uname") or die('Query failed: ' . mysql_error());
 
 echo "
 <style>
@@ -187,19 +190,19 @@ table tr:hover td{
 </style>
 <table border='1'>
 <tr>
-<th>EventID</th>
-<th>Eventname</th>
-<th>Username</th>
-<th>ReportText</th>
+
+<th>Title</th>
+<th>Author</th>
+<th>Created At</th>
 </tr>";
 
 while($row = mysql_fetch_array($result2))
   {
   echo "<tr>";
-  echo "<td>" . $row['eid'] . "</td>";
-  echo "<td>" . $row['ename'] . "</td>";
-  echo "<td>" . $row['uname'] . "</td>";
-  echo "<td>" . $row['rtext'] . "</td>";
+  echo "<td><a href=\"report_detail.php?erid=" . urlencode($row['erId'])."\">". $row['ertitle'] . "</td>";
+  echo "<td>" . $row['nickname'] . "</td>";
+  echo "<td>" . $row['ertime'] . "</td>";
+ 
   echo "</tr>";
   }
 echo "</table>";
@@ -209,10 +212,11 @@ echo '<br>';
 
 
 mysql_close($con);
+echo "<div class=\"navbar-form navbar-left\">
+              <a class=\"btn btn-primary\" href=\"/cookzilla/createreport.php?eid=". $eid ."\">Write Report</a>
+</div>";
 
 ?>
-<div class="navbar-form navbar-left">
-              <a class="btn btn-primary" href="/cookzilla/createreport.php">Write Report</a>
-              
-</div>
+    
+
 
