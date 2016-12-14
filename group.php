@@ -5,6 +5,21 @@
     #profile{
       max-height: 200;
     }
+    #left {
+
+    float: left;
+    width: 500px;    
+    height:500px;
+    padding-left: 100px;
+    
+}
+
+#right {
+    float: right;
+    padding-right: 100px;
+    width: 600px;
+    
+}
   </style>
 </head>
 <body>
@@ -61,8 +76,9 @@
 
 <br>
 </br>
-
-
+<div id="left">
+<h2 style= \"margin-left:40px\">Joined Group</h2>
+<a class="btn btn-primary" href="/cookzilla/createGroup.php">Create Group</a> 
 <?php
 session_start();
 $uname = $_SESSION['uname'];
@@ -79,10 +95,10 @@ mysql_select_db("cookzilla", $con);
 
 //<h1> Joined Group </h1>
 
-echo "<h2 style= \"margin-left:40px\">Joined Group</h2>";
-$result2 = mysql_query("SELECT U.gid ,U.gname , U.creater 
-FROM user_group U, group_mem G
-WHERE U.gid = G.gid and G.uname = '$uname'");
+
+$result2 = mysql_query("SELECT u.gid, U.gname , r.nickname 
+FROM user_group U, group_mem G, users r
+WHERE U.gid = G.gid and G.uname = '$uname' and u.creater = r.uname") or die('Query failed: ' . mysql_error());
 /*
 <style>
 table, th, td{
@@ -205,7 +221,7 @@ table tr:hover td{
 <table>
 
 <tr>
-<th>GroupID</th>
+
 <th>Groupname</th>
 <th>Creater</th>
 </tr>"
@@ -214,10 +230,10 @@ table tr:hover td{
 while($row = mysql_fetch_array($result2))
   {
   echo "<tr>";
-  echo "<td>" . $row['gid'] . "</td>";
-  echo "<td><a href=\"joinEvent.php?gid=".urlencode($row['gid'])."\">".$row['gname']."</a>"."</td>"; 
+  
+  echo "<td class='gname'><a href=\"joinEvent.php?gid=".urlencode($row['gid'])."\">".$row['gname']."</a>"."</td>"; 
   //echo "<td>" . $row['gname'] . "</td>";
-  echo "<td>" . $row['creater'] . "</td>";
+  echo "<td>" . $row['nickname'] . "</td>";
   echo "</tr>";
   }
 echo "</table>";
@@ -240,7 +256,7 @@ th, td {
 tr:hover{background-color:#f5f5f5}
 </style>
 */
-echo "<h2 style= \"margin-left:40px\">Group Members</h2>";
+/*echo "<h2 style= \"margin-left:40px\">Group Members</h2>";
 $result3 = mysql_query("SELECT M1.gid,M1.uname
 FROM group_mem M1, group_mem M2 
 WHERE M1.gid = M2.gid and M2.uname = '$uname' ");
@@ -362,11 +378,28 @@ while($row = mysql_fetch_array($result3))
 echo "</table>";
 
 echo '<br>';
+*/
+?>
 
 
+</div>
+<div id='right'>
+<h2 style= \"margin-left:40px\">All Groups</h2>
+<input type="text" class="form-control col-xs-4" id="kw"  placeholder="Search keyword">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" onclick="filter()"><span class="glyphicon glyphicon-search"></span></button>
+                </span>
+<?php
+$con = mysql_connect("127.0.0.1","root",""); 
+if (!$con)
+  {
+  die('Could not connect: ' . mysql_error());
+  }
+
+mysql_select_db("cookzilla", $con);
 //<h1> All  Groups <h1>
-echo "<h2 style= \"margin-left:40px\">All Groups</h2>";
-$result1 = mysql_query("SELECT * FROM user_group");
+//echo "<h2 style= \"margin-left:40px\">All Groups</h2>";
+$result1 = mysql_query("SELECT g.gid, g.gname, u.nickname FROM user_group g, users u where g.creater = u.uname");
 
 echo "
 <style>
@@ -469,9 +502,9 @@ table tr:hover td{
 }
 
 </style>
-<table border='1'>
+<table border='1' id='gn'>
 <tr>
-<th>GroupID</th>
+
 <th>Groupname</th>
 <th>Creater</th>
 </tr>";
@@ -479,10 +512,11 @@ table tr:hover td{
 while($row = mysql_fetch_array($result1))
   {
   echo "<tr>";
-  echo "<td>" . $row['gid'] . "</td>";
+  //echo "<td>" . $row['gid'] . "</td>";
   echo "<td><a href=\"event.php?gid=".urlencode($row['gid'])."\">".$row['gname']."</a>"."</td>"; 
   //echo "<td>" . $row['gname'] . "</td>";
-  echo "<td>" . $row['creater'] . "</td>";
+  echo "<td>" . $row['nickname'] . "</td>";
+  echo "<td><a class=\"btn btn-primary\" href=\"/cookzilla/joinGroup2.php?gid=". $row['gid'] ."\">Join Group</a></td>";
   echo "</tr>";
   }
 echo "</table>";
@@ -490,14 +524,42 @@ echo "</table>";
 mysql_close($con);
 
 ?>
-
+<!--
+</div>
 <div class="navbar-form navbar-left">
               <a class="btn btn-primary" href="/cookzilla/joinGroup.php">Join Groups</a>        
 </div>
-
+    <a class="btn btn-primary" href="/cookzilla/createGroup.php">Create Groups</a> 
 <div class="navbar-form navbar-left">
-              <a class="btn btn-primary" href="/cookzilla/createGroup.php">Create Groups</a>        
+                     -->
 </div>
+</body>
+<script type="text/javascript">
+  function filter() {
+  // Declare variables 
 
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("kw");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("gn");
+  //tr = table.getElementsByClassName("gname");
+  tr = table.getElementsByTagName("tr");
+  
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    console.log(td);
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        //alert('get');
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    } 
+  }
+}
+</script>
+</html>
 
 

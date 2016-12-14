@@ -6,94 +6,13 @@
 
       max-height: 200;
     }
-  </style>
-</head>
-<body>
-<div class="navbar navbar-inverse navbar-extra" >
-        <div class="container">
-          <div class="navbar-header" >
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/cookzilla"><font color="red">🍴Cookzilla!🍴</font></a>
-          </div>
-          <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-              
+        #left {
 
-
-              <li id="subscribe">
-                <a href="/subscribe/"><font color="orange">Recipe</font></a>
-              </li>
-
-              <li id="subscribe">
-                <a href="/subscribe/"><font color="orange">Tag</font></a>
-              </li>
-              
-              <li id="subscribe">
-                <a href="/subscribe/"><font color="orange">Group</font></a>
-              </li>
-
-              <li id="subscribe">
-                <a href="/subscribe/"><font color="orange">Event</font></a>
-              </li>
-              
-              
-              
-            </ul>
-            
-            <div class="navbar-form navbar-right">
-              <a class="btn btn-primary" href="/cookzilla3/signup.php">Sign up</a>
-              <a class="btn btn-default" href="/cookzilla3/signin.php">Sign in</a>
-            </div>
-            
-            <!--
-            <form class="navbar-form pull-right">
-              <input class="col-md-2" type="text" placeholder="Email">
-              <input class="col-md-2" type="password" placeholder="Password">
-              <button type="submit" class="btn">Sign in</button>
-            </form>
-            -->
-          </div><!--/.navbar-collapse -->
-        </div>
-      </div>
-
-<br>
-</br>
-div class="container-fluid">
-  <div class="row-fluid">
-    <div class="span10">
-      aaa
-    </div>
-    <div class="span2">
-     bbb
-    </div>
-  </div>
-</div>
-<?php
-$gid = $_GET["gid"];
-//$uname = $_SESSION['uname'];
-//echo $uname;
-$con = mysql_connect("127.0.0.1","root",""); 
-if (!$con)
-  {
-  die('Could not connect: ' . mysql_error());
-  }
-
-mysql_select_db("cookzilla", $con);
-
-
-//<h1> Joined Group </h1>
-echo "<h2 style= \"margin-left:40px\"> Group Events</h2>";
-$result2 = mysql_query("SELECT E.eid,E.ename,E.creater,E.starttime,E.endtime,E.max_number
-FROM user_group U, user_event E
-WHERE U.gid = E.gid and E.gid = '$gid'");
-
-echo "
-<style>
-table a:link {
+    float: left;
+    width: 400px;    
+    height:500px;
+    padding-left: 100px;
+    table a:link {
   color: #666;
   font-weight: bold;
   text-decoration:none;
@@ -190,28 +109,139 @@ table tr:hover td{
   background: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#f0f0f0));
   background: -moz-linear-gradient(top,  #f2f2f2,  #f0f0f0);  
 }
+}
 
-</style>
-<table border='1'>
+
+#right {
+    float: right;
+    padding-right: 100px;f
+    width: 700px;
+    
+}
+  </style>
+</head>
+<body>
+<div class="navbar navbar-inverse navbar-extra" >
+        <div class="container">
+          <div class="navbar-header" >
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/cookzilla"><font color="red">🍴Cookzilla!🍴</font></a>
+          </div>
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              
+
+
+              <li id="subscribe">
+                <a href="/subscribe/"><font color="orange">Recipe</font></a>
+              </li>
+
+              <li id="subscribe">
+                <a href="/subscribe/"><font color="orange">Tag</font></a>
+              </li>
+              
+              <li id="subscribe">
+                <a href="/subscribe/"><font color="orange">Group</font></a>
+              </li>
+
+              <li id="subscribe">
+                <a href="/subscribe/"><font color="orange">Event</font></a>
+              </li>
+              
+              
+              
+            </ul>
+            
+            <div class="navbar-form navbar-right">
+              <a class="btn btn-primary" href="/cookzilla3/signup.php">Sign up</a>
+              <a class="btn btn-default" href="/cookzilla3/signin.php">Sign in</a>
+            </div>
+            
+            <!--
+            <form class="navbar-form pull-right">
+              <input class="col-md-2" type="text" placeholder="Email">
+              <input class="col-md-2" type="password" placeholder="Password">
+              <button type="submit" class="btn">Sign in</button>
+            </form>
+            -->
+          </div><!--/.navbar-collapse -->
+        </div>
+      </div>
+
+<br>
+</br>
+<div id="left">
+<h2>Group Members</h2>
+<table class='table'>
+<?php 
+$gid = $_GET["gid"];
+//$uname = $_SESSION['uname'];
+//echo $uname;
+$con = mysql_connect("127.0.0.1","root",""); 
+if (!$con)
+  {
+  die('Could not connect: ' . mysql_error());
+  }
+
+mysql_select_db("cookzilla", $con);
+
+$mem = mysql_query("SELECT u.nickname from Group_mem g, users u where g.gid = '$gid' and g.uname = u.uname
+  ");
+while ($row = mysql_fetch_array($mem)) {
+  echo "<td class='col-md-2'>" . $row['nickname'] . "</td>";
+}
+
+?>
+</table>
+</div>
+
+
+
+<div id="right">
+<h2 style= "margin-left:40px"> Group Events</h2>
+<table class="table">
+<?php
+$gid = $_GET["gid"];
+//$uname = $_SESSION['uname'];
+//echo $uname;
+$con = mysql_connect("127.0.0.1","root",""); 
+if (!$con)
+  {
+  die('Could not connect: ' . mysql_error());
+  }
+
+mysql_select_db("cookzilla", $con);
+
+
+//<h1> Joined Group </h1>
+//echo "<h2 style= \"margin-left:40px\"> Group Events</h2>";
+$result2 = mysql_query("SELECT E.eid,E.ename,r.nickname,E.starttime,E.endtime,E.max_number
+FROM user_group U, user_event E, users r
+WHERE U.gid = E.gid and E.gid = '$gid' and r.uname= e.creater");
+
+echo "
+
+
 <tr>
-<th>EventID</th>
 <th>Eventname</th>
 <th>Creater</th>
-<th>Starttime</th>
-<th>Endtime</th>
-<th>MaxNumber</th>
+<th>Created At</th>
 </tr>";
 
 while($row = mysql_fetch_array($result2))
   {
   echo "<tr>";
-  echo "<td>" . $row['eid'] . "</td>";
   echo "<td><a href=\"rsvp.php?eid=".urlencode($row['eid'])."\">".$row['ename']."</a>"."</td>";
   
-  echo "<td>" . $row['creater'] . "</td>";
-  echo "<td>" . $row['starttime'] . "</td>";
-  echo "<td>" . $row['endtime'] . "</td>";
-  echo "<td>" . $row['max_number'] . "</td>";
+  echo "<td>" . $row['nickname'] . "</td>";
+   echo "<td>" . $row['starttime'] . "</td>";
+  // echo "<td>" . $row['endtime'] . "</td>";
+  // echo "<td>" . $row['max_number'] . "</td>";
+  echo "<td><a class=\"btn btn-primary\" href=\"/cookzilla/rsvp2.php?eid=". $row['eid'] ."\">RSVP</a></td>";
   echo "</tr>";
   }
 echo "</table>";
@@ -241,4 +271,8 @@ echo "</table>";
 mysql_close($con);
 
 ?>
+
+</div>
+</body>
+</html>
 

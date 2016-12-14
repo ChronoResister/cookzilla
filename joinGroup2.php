@@ -71,7 +71,7 @@
 #require 'db.inc';
 session_start();
 $uname = $_SESSION['uname'];
-$gid = (int)$_POST['gid'];
+$gid = $_GET['gid'];
 echo $gid;
 echo $uname;
 

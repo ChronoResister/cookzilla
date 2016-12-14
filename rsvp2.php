@@ -71,7 +71,7 @@
 #require 'db.inc';
 session_start();
 $uname = $_SESSION['uname'];
-$eid = $_POST['eid'];
+$eid = $_GET['eid'];
 //echo $uname;
 
 if (!$connection = mysql_connect("127.0.0.1", "root", ""))
