@@ -403,10 +403,6 @@ while($row = mysql_fetch_array($result))
 mysql_select_db("cookzilla", $con);
 
 $uname=$_SESSION['uname'];
-echo "<script type='text/javascript'>";  
-echo "alert('$uname');";
-
-echo "</script>"; 
 $result = mysql_query("SELECT * FROM recipe where uname = '$uname' order by rtime desc");
 while($row = mysql_fetch_array($result))
   {
