@@ -154,7 +154,7 @@ mysql_select_db("cookzilla", $con);
 $rid = $_GET["rid"];
 $_SESSION['rid'] = $rid;
 $date = date("Y-m-d H:i:s");
-$visited = "INSERT INTO user_visited values('".$_SESSION['uname']."', '".$rid."', '".$date."')";
+$visited = "INSERT INTO user_visited values('".$_SESSION['uname']."', $rid, '".$date."')";
 $result1 = mysql_query($visited) or die('Query failed: ' . mysql_error());
 
 $result = mysql_query("SELECT * FROM recipe, users where recipe.recipeId = '$rid.' and users.uname = recipe.uname") or die('Query failed: ' . mysql_error());

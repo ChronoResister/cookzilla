@@ -171,7 +171,7 @@ if($_GET['sort'] == 'rating') {
     echo "<td class=\"time\">" . $row['rtime'] . "</td>";
     }
   } else if($_GET['sort'] == 'visits'){
-    $result = mysql_query("SELECT recipe.recipeId, recipe.uname, recipe.r_title, recipe.num_of_serving, recipe.rtime from recipe, user_visited where recipe.recipeId = user_visited.recipeId order by count(*) desc
+    $result = mysql_query("select * from recipe, (select count(*) as cnt, recipeId from user_visited group by recipeId order by cnt desc) as v where v.recipeId = recipe.recipeId
 
 ");
     while($row = mysql_fetch_array($result))
