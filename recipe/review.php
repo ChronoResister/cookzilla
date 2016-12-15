@@ -9,6 +9,16 @@
   <script src="../js/bootstrap.min.js"></script>
 
   <style>
+  pre {
+    height: auto;
+    max-height: 1000px;
+    overflow: auto;
+    background-color: #eeeeee;
+    word-break: normal;
+    
+    white-space: pre-wrap;
+word-wrap: break-word;
+}​
     .navbar.navbar-inverse.navbar-extra{
       color: orange;
     }

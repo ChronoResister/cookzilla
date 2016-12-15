@@ -2,6 +2,16 @@
   <title>cookzilla</title>
   <link href="../css/bootstrap.min.css" rel="stylesheet">
   <style>
+  pre {
+    height: auto;
+    max-height: 1000px;
+    overflow: auto;
+    background-color: #eeeeee;
+    word-break: normal;
+    
+    white-space: pre-wrap;
+word-wrap: break-word;
+}​
     #profile{
       max-height: 200;
     }

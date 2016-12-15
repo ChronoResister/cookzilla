@@ -102,6 +102,7 @@
         session_start();
       //需要用isset来检测变量，不然php可能会报错。
         echo $_SESSION['nickname']. "(". $_SESSION['uname'].")";
+
         
       ?>
                 
@@ -138,6 +139,7 @@
 
 mysql_select_db("cookzilla", $con);
 $eid = $_GET['eid'];
+$_SESSION['eid'] = $eid;
   $res = mysql_query("SELECT ename from user_event where eid = 
     '$eid'") or die('Query failed: ' . mysql_error());
 $row = mysql_fetch_array($res);

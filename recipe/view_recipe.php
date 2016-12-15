@@ -140,8 +140,8 @@
 mysql_select_db("cookzilla", $con);
 
 if($_GET['sort'] == 'rating') {
-    $result = mysql_query("SELECT * from recipe NATURAL JOIN review order by avg(wrating) desc
-");
+    $result = mysql_query("SELECT recipe.*, avg(wrating) from recipe, review where recipe.recipeId = review.recipeId order by avg(wrating) desc
+") or die('Query failed: ' . mysql_error());
     while($row = mysql_fetch_array($result)){
       echo "<tr>";
     
@@ -164,14 +164,14 @@ if($_GET['sort'] == 'rating') {
     $r = mysql_fetch_array ($rating)[0];
     echo "<td>"  . round($r ,2) . " / 5</td>";
 
-    $visits = mysql_query("SELECT count(*) FROM user_visited where recipeId = $row[recipeId]" );
+    $visits = mysql_query("SELECT count(*) FROM user_visited where recipeId = '$row[recipeId]'" ) or die('Query failed: ' . mysql_error());
     echo "<td>"  .mysql_fetch_array($visits)[0] . "</td>";
 
     echo "<td class=\"arthur\">" . mysql_fetch_array($arthur)[0] . "</td>";
     echo "<td class=\"time\">" . $row['rtime'] . "</td>";
     }
   } else if($_GET['sort'] == 'visits'){
-    $result = mysql_query("select * from recipe, (select count(*) as cnt, recipeId from user_visited group by recipeId order by cnt desc) as v where v.recipeId = recipe.recipeId
+    $result = mysql_query("select recipe.recipeId, recipe.r_title, recipe.num_of_serving, recipe.r_description, recipe.uname, recipe.rtime, v.cnt from recipe, (select count(*) as cnt, recipeId from user_visited group by recipeId order by cnt desc) as v where v.recipeId = recipe.recipeId ORDER BY `v`.`cnt` DESC
 
 ");
     while($row = mysql_fetch_array($result))
