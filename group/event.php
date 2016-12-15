@@ -247,7 +247,7 @@ echo "
 while($row = mysql_fetch_array($result2))
   {
   echo "<tr>";
-  echo "<td><a href=\"rsvp.php?eid=".urlencode($row['eid'])."\">".$row['ename']."</a>"."</td>";
+  echo "<td><a href=\"report2.php?eid=".urlencode($row['eid'])."\">".$row['ename']."</a>"."</td>";
   
   echo "<td>" . $row['nickname'] . "</td>";
    echo "<td>" . $row['starttime'] . "</td>";
