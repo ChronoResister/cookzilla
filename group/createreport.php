@@ -5,15 +5,15 @@
   
 
 
-  <link href="../cookzilla/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
   <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>-->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-  <script src="../cookzilla/js/bootstrap.min.js"></script>
+  <script src="../js/bootstrap.min.js"></script>
 
  
 
-  <script src="../cookzilla/js/jquery-1.10.2.min.js"></script>
-  <script src="../cookzilla/js/jquery.form.js"></script>
+  <script src="../js/jquery-1.10.2.min.js"></script>
+  <script src="../js/jquery.form.js"></script>
  <script type="text/javascript">
 
 
@@ -81,21 +81,14 @@
 
 
               <li id="subscribe">
-                <a href="/subscribe/"><font color="orange">Recipe</font></a>
+                <a href="/cookzilla/recipe/view_recipe.php?sort=createdat"><font color="orange">Recipe</font></a>
               </li>
 
-              <li id="subscribe">
-                <a href="/subscribe/"><font color="orange">Tag</font></a>
-              </li>
+              
               
               <li id="subscribe">
-                <a href="/subscribe/"><font color="orange">Group</font></a>
+                <a href=/cookzilla/group/group.php><font color="orange">Group</font></a>
               </li>
-
-              <li id="subscribe">
-                <a href="/subscribe/"><font color="orange">Event</font></a>
-              </li>
-              
               
               
             </ul>
@@ -107,31 +100,22 @@
                 
                <?php
         session_start();
-         
+      //需要用isset来检测变量，不然php可能会报错。
         echo $_SESSION['nickname']. "(". $_SESSION['uname'].")";
-        $_SESSION['eid'] = $_GET['eid'];
-  //       echo "<script type='text/javascript'>";  
- // echo "alert($_SESSION['rid']);";
- // echo "</script>"; 
+        
       ?>
-
-                      <span class="caret"></span>
+                
+                <span class="caret"></span>
               </a>
               <ul class="dropdown-menu">
-                <li><a href="/profile/">My Recipe</a></li>
-                <li><a href="/subscription/">My Review</a></li>
-                <li><a href="/subscription/">My Group</a></li>
-                <li><a href="/subscription/">My Event</a></li>
-                <li><a href="/subscription/">My Report</a></li>
-                <li class="divider"></li>
-                <li><a href="/submissions/">My Notifications</a></li>
-                <li class="divider"></li>
-                <li><a href="logout.php">Sign out</a></li>
+              
+                <li><a href="/cookzilla/account/logout.php">Sign out</a></li>
               </ul>
               </li>
             </ul>
             </div>
-</div>
+
+          </div>
 </div>
 </div>
  <div class="col-xs-6  col-center-block">  
@@ -233,7 +217,7 @@ $row = mysql_fetch_array($res);
          
         </div>
           <!-- Textarea -->
-          <form action="../cookzilla/imgupload.php" method="post" enctype="multipart/form-data" id="imageuploadFrom" class="inline">
+          <form action="../imgupload.php" method="post" enctype="multipart/form-data" id="imageuploadFrom" class="inline">
 
 <input name="image" type="file" class="image"><br/>
 
@@ -402,6 +386,6 @@ function getCursortPosition (ctrl) {//获取光标位置函数
     return (CaretPos);
 }
 </script>
-<script language="JavaScript" type="text/javascript" src="../cookzilla/ajaxfileupload.js"></script>
+<script language="JavaScript" type="text/javascript" src="../ajaxfileupload.js"></script>
 
 </html>

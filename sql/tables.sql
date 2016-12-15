@@ -24,7 +24,6 @@ create table ingredient(
 	iname varchar(40),
 	iquantity int,
 	iunit int,
-	constraint chk_unit check (iunit = 0 or iunit = 1),
 	primary key (recipeId, iname),
 	foreign key (recipeId) references recipe(recipeId)
 );
@@ -104,7 +103,9 @@ create table rsvp(
 create table event_report(
 	erId int auto_increment,
 	uname varchar(40),
+
 	eid int,
+	ertitle varchar(40),
 	rtext text,
 	ertime datetime,
 	primary key (erId),
@@ -116,8 +117,29 @@ auto_increment = 10000;
 
 create table user_visited( uname varchar(40), recipeId int, vtime datetime, PRIMARY key (uname, recipeId, vtime), FOREIGN key (uname) REFERENCES users(uname), FOREIGN key (recipeId) REFERENCES recipe(recipeId) );
 
+create table recipe_img(
+	rpId int auto_increment,
+	recipeId int,
+	image text,
+	primary key (rpId),
+	foreign key (recipeId) references recipe(recipeId)
+);
 
+create table review_img(
+	rpId int auto_increment,
+	reviewId int,
+	image text,
+	primary key (rpId),
+	foreign key (reviewId) references review(reviewId)
+);
 
+create table report_img(
+	epId int auto_increment,
+	erId int,
+	image text,
+	primary key (epId),
+	foreign key (erId) references event_report(erId)
+);
 
 
 

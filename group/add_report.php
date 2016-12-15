@@ -43,7 +43,7 @@ if(isset($images)){
 mysql_close($connection);  
 
 echo "<script type='text/javascript'>";  
-echo "alert('create review successfully! Loading back to frong page...');";
-echo "window.location.href='/cookzilla/index.php'";
+echo "alert('create review successfully! Loading back to previous page...');";
+echo "history.go(-2)";
 echo "</script>";  
 ?>

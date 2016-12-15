@@ -1,11 +1,25 @@
 <head>
   <title>cookzilla</title>
-  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
   <style>
     #profile{
-
       max-height: 200;
     }
+    #left {
+
+    float: left;
+    width: 500px;    
+    height:500px;
+    padding-left: 100px;
+    
+}
+
+#right {
+    float: right;
+    padding-right: 100px;
+    width: 600px;
+    
+}
   </style>
 </head>
 <body>
@@ -25,38 +39,44 @@
 
 
               <li id="subscribe">
-                <a href="/subscribe/"><font color="orange">Recipe</font></a>
+                <a href="/cookzilla/recipe/view_recipe.php?sort=createdat"><font color="orange">Recipe</font></a>
               </li>
 
-              <li id="subscribe">
-                <a href="/subscribe/"><font color="orange">Tag</font></a>
-              </li>
+              
               
               <li id="subscribe">
-                <a href="/subscribe/"><font color="orange">Group</font></a>
+                <a href=/cookzilla/group/group.php><font color="orange">Group</font></a>
               </li>
 
-              <li id="subscribe">
-                <a href="/subscribe/"><font color="orange">Event</font></a>
-              </li>
+            
               
               
               
             </ul>
             
-            <div class="navbar-form navbar-right">
-              <a class="btn btn-primary" href="/cookzilla/signup.php">Sign up</a>
-              <a class="btn btn-default" href="/cookzilla/signin.php">Sign in</a>
+            <div class="dropdown">
+            <ul id="navbar-right" class="nav navbar-nav navbar-right">
+              <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                
+               <?php
+        session_start();
+      //需要用isset来检测变量，不然php可能会报错。
+        echo $_SESSION['nickname']. "(". $_SESSION['uname'].")";
+        
+      ?>
+                
+                <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu">
+              
+                <li><a href="/cookzilla/account/logout.php">Sign out</a></li>
+              </ul>
+              </li>
+            </ul>
             </div>
-            
-            <!--
-            <form class="navbar-form pull-right">
-              <input class="col-md-2" type="text" placeholder="Email">
-              <input class="col-md-2" type="password" placeholder="Password">
-              <button type="submit" class="btn">Sign in</button>
-            </form>
-            -->
-          </div><!--/.navbar-collapse -->
+
+          </div>
         </div>
       </div>
 
@@ -64,10 +84,11 @@
 </br>
 
 <?php
-session_start();
+
 $uname = $_SESSION['uname'];
 
 $gid = $_GET["gid"];
+$_SESSION['gid'] = $gid;
 //$uname = $_SESSION['uname'];
 //echo $uname;
 $con = mysql_connect("127.0.0.1","root",""); 
@@ -77,10 +98,11 @@ if (!$con)
   }
 
 mysql_select_db("cookzilla", $con);
-
+$gn = mysql_query("SELECT gname from user_group where gid = '$gid'");
+echo "<h2 style= \"margin-left:40px\">Group Name:&nbsp&nbsp". mysql_fetch_array($gn)[0]."</h2>";
 
 echo "<h2 style= \"margin-left:40px\"> Joined Group Events</h2>";
-$result2 = mysql_query("SELECT E.eid,E.ename,E.creater,E.starttime,E.endtime,E.max_number FROM user_event E,rsvp WHERE E.gid = '$gid' and rsvp.eid = E.eid and rsvp.uname = '$uname'") or die('Query failed: ' . mysql_error());
+$result2 = mysql_query("SELECT E.eid,E.ename,r.nickname,E.starttime,E.endtime,E.max_number FROM users r, user_event E,rsvp WHERE E.gid = '$gid' and rsvp.eid = E.eid and e.creater = r.uname and rsvp.uname = '$uname'") or die('Query failed: ' . mysql_error());
 /*
 SELECT E.eid,E.ename,E.creater,E.starttime,E.endtime,E.max_number
 FROM user_event E,rsvp
@@ -207,7 +229,7 @@ while($row = mysql_fetch_array($result2))
   //echo "<td>" . $row['eid'] . "</td>";
   echo "<td><a href=\"report.php?eid=".urlencode($row['eid'])."\">".$row['ename']."</a>"."</td>";
   
-  echo "<td>" . $row['creater'] . "</td>";
+  echo "<td>" . $row['nickname'] . "</td>";
   echo "<td>" . $row['starttime'] . "</td>";
   //echo "<td>" . $row['endtime'] . "</td>";
  // echo "<td>" . $row['max_number'] . "</td>";
@@ -219,7 +241,7 @@ echo "</table>";
 echo '<br>';
 //<h1> Joined Group </h1>
 
-echo "<h2 style= \"margin-left:40px\"> Other Group Events</h2>";
+echo "<h2 style= \"margin-left:40px\"> Unjoined Group Events</h2>";
 $result1 = mysql_query(
   "SELECT E.eid,E.ename,r.nickname,E.starttime, count(p.eid) as currentMember
 FROM user_event E,rsvp p, users r
@@ -384,13 +406,34 @@ echo "</table>";
 */
 mysql_close($con);
 
+/*echo "<div class=\"navbar-form navbar-left\">
+              <a class=\"btn btn-primary\" href=\"/cookzilla/createEvent.php?gid=".
+             $gid. "\">Create Events</a>        
+</div>";
+*/
+
 ?>
 
-<div class="navbar-form navbar-left">
-              <a class="btn btn-primary" href="/cookzilla/rsvp.php">Join Events</a>        
-</div>
+<div class="col-xs-4  col-left-block"> 
+<form class="form-horizontal" onsubmit="return check()" action="createEvent.php" method="post" name="form">
+ <fieldset>
+      <div id="legend" class="">
+        
+      </div>
+    <div class="control-group">
 
-<div class="navbar-form navbar-left">
-              <a class="btn btn-primary" href="/cookzilla/createEvent.php">Create Events</a>        
-</div>
+          <!-- Text input-->
+          <label class="control-label" for="input01">Event Name</label>
+          <div class="controls">
+            <input class="form-control" type="text" name="ename" placeholder="Event Name" >
+            <p class="help-block"></p>
+          </div>
+        </div>
+        <div class="control-group">
+        <button type="submit" class="btn center-block">Create Event</button>
+    </div>
+    </fieldset>
+    </form>
+    </div>
+
 

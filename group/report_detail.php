@@ -1,67 +1,27 @@
-<!DOCTYPE html>
-
-<html>
-
 <head>
-	<title>cookzilla</title>
-	<link href="../cookzilla/css/bootstrap.min.css" rel="stylesheet">
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-	<script src="../cookzilla/js/bootstrap.min.js"></script>
-
-	<style>
-		.navbar.navbar-inverse.navbar-extra{
-			color: orange;
-		}
-    .col-center-block {  
-    float: none;  
-    display: block;  
-    margin-left: auto;  
-    margin-right: auto;  
-} 
-#father{
-  position: relative;
-  width: 500;
-}
-#content {
+  <title>cookzilla</title>
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    #profile{
+      max-height: 200;
+    }
+    #left {
 
     float: left;
-    width: 800px;    
+    width: 500px;    
     height:500px;
-    padding-left: 50px;
+    padding-left: 100px;
     
 }
-#review {
-  float:left;
-  width: 800px;
-  height: 200px;
-}
-#side {
-    float: right;
-    padding-right: 50px;
-    width: 300px;
-    
-}
-#left {
-  position: absolute;
-  left:50;
-  top:20;
-  width: 800;
-  float: left;
-}
+
 #right {
-  position: absolute;
-  right:50;
-  top:20;
-  width: 200;
-  float: right;
+    float: right;
+    padding-right: 100px;
+    width: 600px;
+    
 }
-
-
-	</style>
-
-
+  </style>
 </head>
-
 <body>
 <div class="navbar navbar-inverse navbar-extra" >
         <div class="container">
@@ -82,17 +42,13 @@
                 <a href="/cookzilla/recipe/view_recipe.php?sort=createdat"><font color="orange">Recipe</font></a>
               </li>
 
-              <li id="subscribe">
-                <a href="/subscribe/"><font color="orange">Tag</font></a>
-              </li>
+              
               
               <li id="subscribe">
-                <a href="/subscribe/"><font color="orange">Group</font></a>
+                <a href=/cookzilla/group/group.php><font color="orange">Group</font></a>
               </li>
 
-              <li id="subscribe">
-                <a href="/subscribe/"><font color="orange">Event</font></a>
-              </li>
+            
               
               
               
@@ -104,47 +60,28 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 
                <?php
-				session_start();
-			//需要用isset来检测变量，不然php可能会报错。
-
-				echo $_SESSION['nickname']. "(". $_SESSION['uname'].")";
-				
-			?>
+        session_start();
+      //需要用isset来检测变量，不然php可能会报错。
+        echo $_SESSION['nickname']. "(". $_SESSION['uname'].")";
+        
+      ?>
                 
                 <span class="caret"></span>
               </a>
               <ul class="dropdown-menu">
-                <li><a href="/profile/">My Recipe</a></li>
-                <li><a href="/subscription/">My Review</a></li>
-                <li><a href="/subscription/">My Group</a></li>
-                <li><a href="/subscription/">My Event</a></li>
-                <li><a href="/subscription/">My Report</a></li>
-                <li class="divider"></li>
-                <li><a href="/submissions/">My Notifications</a></li>
-                <li class="divider"></li>
+              
                 <li><a href="/cookzilla/account/logout.php">Sign out</a></li>
               </ul>
               </li>
             </ul>
             </div>
 
-
-
-
-            
-            <!--
-            <form class="navbar-form pull-right">
-              <input class="col-md-2" type="text" placeholder="Email">
-              <input class="col-md-2" type="password" placeholder="Password">
-              <button type="submit" class="btn">Sign in</button>
-            </form>
-            -->
-          </div><!--/.navbar-collapse -->
+          </div>
         </div>
       </div>
       
 
-    
+    <div class="center-block" style="width:600px">
     <?php
     $con = mysql_connect("127.0.0.1","root",""); 
   if (!$con)
@@ -190,8 +127,7 @@ while($row = mysql_fetch_array($images)) {
 <!--<a class="btn btn-primary" href="/cookzilla/recipe/new_review.php?rid=$rid">Post Recipe</a>-->
 </div>  
 
-      
-   
+       
 
 
 

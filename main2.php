@@ -30,17 +30,12 @@
                 <a href="/cookzilla/account/sign.php"><font color="orange">Recipe</font></a>
               </li>
 
-              <li id="subscribe">
-                <a href="/cookzilla/account/sign.php"><font color="orange">Tag</font></a>
-              </li>
-              
+                            
               <li id="subscribe">
                 <a href="/cookzilla/account/sign.php"><font color="orange">Group</font></a>
               </li>
 
-              <li id="subscribe">
-                <a href="/cookzilla/account/sign.php"><font color="orange">Event</font></a>
-              </li>
+              
               
               
               
@@ -70,11 +65,46 @@
               <a class="btn btn-default btn-lg" href="/cookzilla/sign.php">Sign in</a>
       </p>-->
    </div>
+   <div class="inline">
+   <div style="float: left;width: 600px;">
+   <h2>Latest Recipes:</h2>
+   <?php 
+   $con = mysql_connect("127.0.0.1","root",""); 
+if (!$con)
+  {
+  die('Could not connect: ' . mysql_error());
+  }
+
+mysql_select_db("cookzilla", $con);
+
+  $result = mysql_query("SELECT * from recipe order by rtime desc limit 10");
+  while ($row = mysql_fetch_array($result)) {
+    echo "<p><a href='/cookzilla/account/sign.php'>".$row['r_title']."</a></p>";
+   
+  }
+  ?>
+  </div>
+  <div style="float: left;">
+    <h2>Latest Events:</h2>
+    <?php 
+   $con = mysql_connect("127.0.0.1","root",""); 
+if (!$con)
+  {
+  die('Could not connect: ' . mysql_error());
+  }
+
+mysql_select_db("cookzilla", $con);
+
+  $result = mysql_query("SELECT * from user_event order by starttime desc limit 10");
+  while ($row = mysql_fetch_array($result)) {
+    echo "<p><a href='/cookzilla/account/sign.php'>".$row['ename']."</a></p>";
+   
+  }
+  ?>
+  </div>
+  </div>
 </div>
-<div class="navbar-form navbar-left">
-              <a class="btn btn-primary" href="/cookzilla/account/sign.php">Post Recipe</a>
-              
-            </div>
+
 
 </body>
 <script type="text/javascript">

@@ -60,45 +60,41 @@
         </div>
       </div>
 
-
-     <div class="container">
-  <form class="form-signin" method="POST" action="/cookzilla/createGroup2.php">
-    <h3 class="form-signin-heading">Create New Event</h3>
-    <hr>
-    <input type="hidden" name="csrfmiddlewaretoken" value="ATJpOoTKlFZIZKALOpdr6BvmjWuLNmECMKelyt0vqOt93EPBkPydgpa0nwoLg8uZ">
-    <div  id = "profile"><input id="profile" name="ename" placeholder="EventName" type="text" required="" class="form-control"></div>
-    <div  id = "profile"><input id="profile" name="gname" placeholder="GroupName" type="text" required="" class="form-control"></div>
-    
-    
-    <br>    
-
-    <button class="btn btn-primary" type="submit">Create</button>
- <!--   
-     <form class="form-signin" method="POST" action="/accounts/login/">
-    <h3 class="form-signin-heading">Sign In</h3>
-    <hr>
-    <input type="hidden" name="csrfmiddlewaretoken" value="rXFdSRXruxzUciyOFoXUWPdYKK2VjNKZDOa9CW4czG3lgcNEbOiG6DSCOkWVMzAm">
-    <div class="form-group"><input autofocus="autofocus" id="id_login" name="login" placeholder="User Id" type="text" required="" class="form-control"></div>
-    <div class="form-group"><input id="id_password" name="password" placeholder="Password" type="password" required="" class="form-control"></div>
-    <label class="form-group"><input id="id_remember" name="remember" type="checkbox">Remember Me</label>
-    <div class="form-group">
-      
-      <button class="btn btn-primary" type="submit">Sign In</button>
-      
-    </div>
-    
-      <hr>
-      
-    
-  </form>
-  -->
+<br>
+</br>
 
 
 
-        </ul>
-      </div>
-    
-  </form>
-</div>
-     </body>
+
+<?php
+#require 'authentication.inc';
+#require 'db.inc';
+session_start();
+$uname = $_SESSION['uname'];
+$gid = $_GET['gid'];
+echo $gid;
+echo $uname;
+
+if (!$connection = mysql_connect("127.0.0.1", "root", ""))
+  die("Cannot connect" . mysql_error());
+mysql_select_db('cookzilla') or die('Could not select database' . mysql_error());
+#echo $kw;
+$idd = 1;
+$query = "INSERT INTO group_mem values ($gid,'$uname')";
+
+
+$result = mysql_query($query) or die('Query failed: ' . mysql_error());
+
+echo "success";
+echo "<script type='text/javascript'>";  
+echo "alert('You have Joined the group! Loading into group page...');";
+echo "window.location.href='/cookzilla/group/group.php'";
+echo "</script>";  
+// Free resultset
+mysql_free_result($result);
+
+// Closing connection
+mysql_close($connection);
+?>
+
 

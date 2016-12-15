@@ -1,6 +1,6 @@
 <head>
   <title>cookzilla</title>
-  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
   <style>
     #profile{
       max-height: 200;
@@ -39,38 +39,44 @@
 
 
               <li id="subscribe">
-                <a href="/subscribe/"><font color="orange">Recipe</font></a>
+                <a href="/cookzilla/recipe/view_recipe.php?sort=createdat"><font color="orange">Recipe</font></a>
               </li>
 
-              <li id="subscribe">
-                <a href="/subscribe/"><font color="orange">Tag</font></a>
-              </li>
+              
               
               <li id="subscribe">
-                <a href="/subscribe/"><font color="orange">Group</font></a>
+                <a href=/cookzilla/group/group.php><font color="orange">Group</font></a>
               </li>
 
-              <li id="subscribe">
-                <a href="/subscribe/"><font color="orange">Event</font></a>
-              </li>
+            
               
               
               
             </ul>
             
-            <div class="navbar-form navbar-right">
-              <a class="btn btn-primary" href="/cookzilla3/signup.php">Sign up</a>
-              <a class="btn btn-default" href="/cookzilla3/signin.php">Sign in</a>
+            <div class="dropdown">
+            <ul id="navbar-right" class="nav navbar-nav navbar-right">
+              <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                
+               <?php
+        session_start();
+      //需要用isset来检测变量，不然php可能会报错。
+        echo $_SESSION['nickname']. "(". $_SESSION['uname'].")";
+        
+      ?>
+                
+                <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu">
+              
+                <li><a href="/cookzilla/account/logout.php">Sign out</a></li>
+              </ul>
+              </li>
+            </ul>
             </div>
-            
-            <!--
-            <form class="navbar-form pull-right">
-              <input class="col-md-2" type="text" placeholder="Email">
-              <input class="col-md-2" type="password" placeholder="Password">
-              <button type="submit" class="btn">Sign in</button>
-            </form>
-            -->
-          </div><!--/.navbar-collapse -->
+
+          </div>
         </div>
       </div>
 
@@ -78,9 +84,9 @@
 </br>
 <div id="left">
 <h2 style= \"margin-left:40px\">Joined Group</h2>
-<a class="btn btn-primary" href="/cookzilla/createGroup.php">Create Group</a> 
+<a class="btn btn-primary" href="createGroup.php">Create Group</a> 
 <?php
-session_start();
+//session_start();
 $uname = $_SESSION['uname'];
 //echo $uname;
 //echo $uname;
@@ -400,9 +406,9 @@ mysql_select_db("cookzilla", $con);
 //<h1> All  Groups <h1>
 //echo "<h2 style= \"margin-left:40px\">All Groups</h2>";
 $result1 = mysql_query("SELECT g.gid, g.gname, u.nickname 
-  FROM user_group g, users u where g.creater = u.uname and g.gname not in
-  (SELECT U.gname FROM user_group U, group_mem G, users r
-WHERE U.gid = G.gid and G.uname = '$uname' and u.creater = r.uname)");
+  FROM user_group g, users u where g.creater = u.uname and g.gid not in
+  (SELECT U.gid FROM user_group U, group_mem G
+WHERE U.gid = G.gid and G.uname = '$uname')");
 
 //SELECT u.gid, U.gname , r.nickname 
 //FROM user_group U, group_mem G, users r
@@ -523,7 +529,7 @@ while($row = mysql_fetch_array($result1))
   echo "<td><a href=\"event.php?gid=".urlencode($row['gid'])."\">".$row['gname']."</a>"."</td>"; 
   //echo "<td>" . $row['gname'] . "</td>";
   echo "<td>" . $row['nickname'] . "</td>";
-  echo "<td><a class=\"btn btn-primary\" href=\"/cookzilla/joinGroup2.php?gid=". $row['gid'] ."\">Join Group</a></td>";
+  echo "<td><a class=\"btn btn-primary\" href=\"joinGroup2.php?gid=". $row['gid'] ."\">Join Group</a></td>";
   echo "</tr>";
   }
 echo "</table>";

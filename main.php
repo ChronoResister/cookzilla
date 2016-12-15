@@ -35,17 +35,13 @@
                 <a href="/cookzilla/recipe/view_recipe.php?sort=createdat"><font color="orange">Recipe</font></a>
               </li>
 
-              <li id="subscribe">
-                <a href="/subscribe/"><font color="orange">Tag</font></a>
-              </li>
+              
               
               <li id="subscribe">
-                <a href="/subscribe/"><font color="orange">Group</font></a>
+                <a href=/cookzilla/group/group.php><font color="orange">Group</font></a>
               </li>
 
-              <li id="subscribe">
-                <a href="/subscribe/"><font color="orange">Event</font></a>
-              </li>
+            
               
               
               
@@ -66,31 +62,14 @@
                 <span class="caret"></span>
               </a>
               <ul class="dropdown-menu">
-                <li><a href="/profile/">My Recipe</a></li>
-                <li><a href="/subscription/">My Review</a></li>
-                <li><a href="/subscription/">My Group</a></li>
-                <li><a href="/subscription/">My Event</a></li>
-                <li><a href="/subscription/">My Report</a></li>
-                <li class="divider"></li>
-                <li><a href="/submissions/">My Notifications</a></li>
-                <li class="divider"></li>
+              
                 <li><a href="/cookzilla/account/logout.php">Sign out</a></li>
               </ul>
               </li>
             </ul>
             </div>
 
-
-
-            
-            <!--
-            <form class="navbar-form pull-right">
-              <input class="col-md-2" type="text" placeholder="Email">
-              <input class="col-md-2" type="password" placeholder="Password">
-              <button type="submit" class="btn">Sign in</button>
-            </form>
-            -->
-          </div><!--/.navbar-collapse -->
+          </div>
         </div>
       </div>
 <div class="container">
@@ -102,15 +81,84 @@
               <a class="btn btn-default btn-lg" href="/cookzilla/sign.php">Sign in</a>
       </p>-->
    </div>
-</div>
-<div class="navbar-form navbar-left">
-              <a class="btn btn-primary" href="/cookzilla/add_recipe.php">Post Recipe</a>
-              
-            </div>
 
-<div class="navbar-form navbar-left">
-              <a class="btn btn-primary" href="/cookzilla/group.php">Check Group</a>
-              
+<div class="inline">
+   <div style="float: left;width: 600px;">
+   <h2>Latest Recipes:</h2>
+   <?php 
+   $con = mysql_connect("127.0.0.1","root",""); 
+if (!$con)
+  {
+  die('Could not connect: ' . mysql_error());
+  }
+
+mysql_select_db("cookzilla", $con);
+
+  $result = mysql_query("SELECT * from recipe order by rtime desc limit 10");
+  while ($row = mysql_fetch_array($result)) {
+    echo "<p><a href=\"recipe/recipe_detail.php?rid=".urlencode($row['recipeId'])."\">" . $row['r_title'] . "</a></p>";
+   
+  }
+  ?>
+  </div>
+  <div style="float: left;">
+    <h2>My Latest Recipes:</h2>
+    <?php 
+   $con = mysql_connect("127.0.0.1","root",""); 
+if (!$con)
+  {
+  die('Could not connect: ' . mysql_error());
+  }
+
+mysql_select_db("cookzilla", $con);
+  $uname = $_SESSION['uname'];
+  $result = mysql_query("SELECT * from recipe where uname = '$uname' order by rtime desc limit 10");
+  while ($row = mysql_fetch_array($result)) {
+    echo "<p><a href=\"recipe/recipe_detail.php?rid=".urlencode($row['recipeId'])."\">" . $row['r_title'] . "</a></p>";
+   
+  }
+  ?>
+  </div>
+  </div>
+
+  <div style="float: left;width: 600px;">
+   <h2>Latest Visited Recipes:</h2>
+   <?php 
+   $con = mysql_connect("127.0.0.1","root",""); 
+if (!$con)
+  {
+  die('Could not connect: ' . mysql_error());
+  }
+
+mysql_select_db("cookzilla", $con);
+  $uname = $_SESSION['uname'];
+  $result = mysql_query("SELECT distinct r.recipeId, r.r_title from recipe r, user_visited v where v.uname = '$uname' and v.recipeId = r.recipeId order by v.vtime desc limit 10");
+  while ($row = mysql_fetch_array($result)) {
+    echo "<p><a href=\"recipe/recipe_detail.php?rid=".urlencode($row['recipeId'])."\">" . $row['r_title'] . "</a></p>";
+   
+  }
+  ?>
+  </div>
+
+<div style="float: left;">
+    <h2>My Groups:</h2>
+    <?php 
+   $con = mysql_connect("127.0.0.1","root",""); 
+if (!$con)
+  {
+  die('Could not connect: ' . mysql_error());
+  }
+
+mysql_select_db("cookzilla", $con);
+  $uname = $_SESSION['uname'];
+  $result = mysql_query("SELECT g.gid, g.gname from user_group g, group_mem m where m.uname = '$uname' and m.gid = g.gid");
+  while ($row = mysql_fetch_array($result)) {
+    echo "<p><a href=\"group/event.php?gid=".urlencode($row['gid'])."\">".$row['gname']."</a></p>";
+   
+  }
+  ?>
+  </div>
+
 </div>
 </body>
 <script type="text/javascript">

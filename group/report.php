@@ -1,10 +1,25 @@
 <head>
   <title>cookzilla</title>
-  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
   <style>
     #profile{
       max-height: 200;
     }
+    #left {
+
+    float: left;
+    width: 500px;    
+    height:500px;
+    padding-left: 100px;
+    
+}
+
+#right {
+    float: right;
+    padding-right: 100px;
+    width: 600px;
+    
+}
   </style>
 </head>
 <body>
@@ -24,38 +39,44 @@
 
 
               <li id="subscribe">
-                <a href="/subscribe/"><font color="orange">Recipe</font></a>
+                <a href="/cookzilla/recipe/view_recipe.php?sort=createdat"><font color="orange">Recipe</font></a>
               </li>
 
-              <li id="subscribe">
-                <a href="/subscribe/"><font color="orange">Tag</font></a>
-              </li>
+              
               
               <li id="subscribe">
-                <a href="/subscribe/"><font color="orange">Group</font></a>
+                <a href=/cookzilla/group/group.php><font color="orange">Group</font></a>
               </li>
 
-              <li id="subscribe">
-                <a href="/subscribe/"><font color="orange">Event</font></a>
-              </li>
+            
               
               
               
             </ul>
             
-            <div class="navbar-form navbar-right">
-              <a class="btn btn-primary" href="/cookzilla/signup.php">Sign up</a>
-              <a class="btn btn-default" href="/cookzilla/signin.php">Sign in</a>
+            <div class="dropdown">
+            <ul id="navbar-right" class="nav navbar-nav navbar-right">
+              <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                
+               <?php
+        session_start();
+      //需要用isset来检测变量，不然php可能会报错。
+        echo $_SESSION['nickname']. "(". $_SESSION['uname'].")";
+        
+      ?>
+                
+                <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu">
+              
+                <li><a href="/cookzilla/account/logout.php">Sign out</a></li>
+              </ul>
+              </li>
+            </ul>
             </div>
-            
-            <!--
-            <form class="navbar-form pull-right">
-              <input class="col-md-2" type="text" placeholder="Email">
-              <input class="col-md-2" type="password" placeholder="Password">
-              <button type="submit" class="btn">Sign in</button>
-            </form>
-            -->
-          </div><!--/.navbar-collapse -->
+
+          </div>
         </div>
       </div>
 
@@ -63,7 +84,7 @@
 </br>
 
 <?php
-session_start();
+
 $uname = $_SESSION['uname'];
 //echo $uname;
 $eid = $_GET["eid"];
@@ -81,7 +102,7 @@ mysql_select_db("cookzilla", $con);
 
 echo "<h2 style= \"margin-left:40px\"> Event reports </h2>";
 $rrr = mysql_query("SELECT ename from user_event where eid = '$eid' ");
-echo "<h2 style= \"margin-left:40px\"> Event Title: ".
+echo "<h2 style= \"margin-left:40px\"> Event Name: ".
 mysql_fetch_array($rrr)[0] . "</h2>";
 $result2 = mysql_query("SELECT r.erId, r.ertitle, u.nickname, r.ertime
 FROM user_event E, event_report R, users u
@@ -213,7 +234,7 @@ echo '<br>';
 
 mysql_close($con);
 echo "<div class=\"navbar-form navbar-left\">
-              <a class=\"btn btn-primary\" href=\"/cookzilla/createreport.php?eid=". $eid ."\">Write Report</a>
+              <a class=\"btn btn-primary\" href=\"createreport.php?eid=". $eid ."\">Write Report</a>
 </div>";
 
 ?>

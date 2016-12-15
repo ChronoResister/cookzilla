@@ -22,7 +22,7 @@ if(isset($tags)){
     if ($tags[$x] != '') {
       $query = "INSERT INTO Tag values ('".$rid."','".$tags[$x]."')";
 	   $result = mysql_query($query) or die('Query failed: ' . mysql_error());
-     $rrr = "SELECT recipeId from tag where rtag = '$tags[$x]'";
+     $rrr = "SELECT recipeId from tag where rtag = '$tags[$x]' and recipeId != '$rid'";
      $related = mysql_query($rrr) or die('Query failed: ' . mysql_error());
      while($row = mysql_fetch_array($related)) {
       $reid = $row['recipeId'];
@@ -71,7 +71,7 @@ if(isset($images)){
 mysql_close($connection);  
 
 echo "<script type='text/javascript'>";  
-echo "alert('create recipe successfully! Loading back to frong page...');";
-echo "window.location.href='/cookzilla/index.php'";
+echo "alert('create recipe successfully! Loading back to previous page...');";
+echo "history.go(-2)";
 echo "</script>";  
 ?>

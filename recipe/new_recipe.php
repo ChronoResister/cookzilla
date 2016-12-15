@@ -80,20 +80,15 @@
               
 
 
-              <li id="subscribe">
-                <a href="/subscribe/"><font color="orange">Recipe</font></a>
-              </li>
-
-              <li id="subscribe">
-                <a href="/subscribe/"><font color="orange">Tag</font></a>
-              </li>
               
               <li id="subscribe">
-                <a href="/subscribe/"><font color="orange">Group</font></a>
+                <a href="/cookzilla/recipe/view_recipe.php?sort=createdat"><font color="orange">Recipe</font></a>
               </li>
 
+              
+              
               <li id="subscribe">
-                <a href="/subscribe/"><font color="orange">Event</font></a>
+                <a href=/cookzilla/group/group.php><font color="orange">Group</font></a>
               </li>
               
               
@@ -115,14 +110,7 @@
                       <span class="caret"></span>
               </a>
               <ul class="dropdown-menu">
-                <li><a href="/profile/">My Recipe</a></li>
-                <li><a href="/subscription/">My Review</a></li>
-                <li><a href="/subscription/">My Group</a></li>
-                <li><a href="/subscription/">My Event</a></li>
-                <li><a href="/subscription/">My Report</a></li>
-                <li class="divider"></li>
-                <li><a href="/submissions/">My Notifications</a></li>
-                <li class="divider"></li>
+                
                 <li><a href="logout.php">Sign out</a></li>
               </ul>
               </li>

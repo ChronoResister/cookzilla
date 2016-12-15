@@ -71,24 +71,27 @@
 #require 'db.inc';
 session_start();
 $uname = $_SESSION['uname'];
-$gid = $_GET['gid'];
-echo $gid;
+$gname = $_POST['gname'];
 echo $uname;
 
 if (!$connection = mysql_connect("127.0.0.1", "root", ""))
   die("Cannot connect" . mysql_error());
 mysql_select_db('cookzilla') or die('Could not select database' . mysql_error());
 #echo $kw;
-$idd = 1;
-$query = "INSERT INTO group_mem values ($gid,'$uname')";
+//$idd = 1;
+$query1 = "INSERT INTO user_group values (0,'$gname','$uname')";
 
 
-$result = mysql_query($query) or die('Query failed: ' . mysql_error());
+
+$result = mysql_query($query1) or die('Query failed: ' . mysql_error());
+$gid = mysql_insert_id();
+$query2 = "INSERT INTO group_mem values ('$gid','$uname')";
+$result2 = mysql_query($query2) or die('Query failed: ' . mysql_error());
 
 echo "success";
 echo "<script type='text/javascript'>";  
-echo "alert('You have Joined group $gid! Loading into group page...');";
-echo "window.location.href='/cookzilla/group.php'";
+echo "alert('You have Created group $gname! Loading into group page...');";
+echo "history.go(-2)";
 echo "</script>";  
 // Free resultset
 mysql_free_result($result);
