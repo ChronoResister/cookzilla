@@ -87,7 +87,7 @@ $result = mysql_query($query) or die('Query failed: ' . mysql_error());
 echo "success";
 echo "<script type='text/javascript'>";  
 echo "alert('You have registered event successfully! Loading into event page...');";
-echo "window.location.href='/cookzilla/group.php'";
+echo "window.location.href='group.php'";
 echo "</script>";  
 // Free resultset
 mysql_free_result($result);

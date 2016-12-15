@@ -374,7 +374,7 @@ while($row = mysql_fetch_array($result1))
   //echo "<td>" . $row['endtime'] . "</td>";
   //echo "<td>" . $row['max_number'] . "</td>";
   echo "<td>" . $row['currentMember'] . "</td>";
-  echo "<td><a class=\"btn btn-primary\" href=\"/cookzilla/rsvp2.php?eid=". $row['eid'] ."\">RSVP</a></td>";
+  echo "<td><a class=\"btn btn-primary\" href=\"rsvp2.php?eid=". $row['eid'] ."\">RSVP</a></td>";
 
 
   echo "</tr>";
