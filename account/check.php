@@ -17,7 +17,7 @@ $query = "INSERT INTO Users values ('".$uname."','".$nickname."','".$password."'
 $result = mysql_query($query) or die('Query failed: ' . mysql_error());
 
 $_SESSION['uname']=$uname;
-$_SESSION['nickname']=$row[0];
+$_SESSION['nickname']=$nickname;
 echo "<script type='text/javascript'>";  
 echo "alert('Sign up successfully. Sign in and loading back to front page...');";
 echo "window.location.href='/cookzilla/index.php'";

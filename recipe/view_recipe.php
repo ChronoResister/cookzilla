@@ -116,7 +116,7 @@
         </div>
   </div>
   
-  
+  <div style="height:400px;overflow: auto;">
   <table class="table" id="recipe">
   
   <thead class="thead-inverse"><tr>
@@ -274,7 +274,7 @@ while($row = mysql_fetch_array($result))
   ?>
   </tbody>
   </table>
-  
+  </div>
      </div>
      </div>
 
@@ -284,7 +284,7 @@ while($row = mysql_fetch_array($result))
      
    
   
-  
+  <div style="height:400px;overflow: auto;">
   <table class="table">
   <thead class="thead-inverse"><tr>
   <th width="350">Title</th>
@@ -369,7 +369,7 @@ while($row = mysql_fetch_array($result))
   ?>
   </tbody>
   </table>
-  
+  </div>
      </div>
      </div>
 
@@ -379,7 +379,7 @@ while($row = mysql_fetch_array($result))
      
    
   
-  
+  <div style="height:400px;overflow: auto;">
   <table class="table">
   <thead class="thead-inverse"><tr>
   <th width="350">Title</th>
@@ -463,7 +463,7 @@ while($row = mysql_fetch_array($result))
   ?>
   </tbody>
   </table>
-  
+  </div>
      </div>
      </div>
 

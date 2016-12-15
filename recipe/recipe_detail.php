@@ -148,14 +148,14 @@ $visited = "INSERT INTO user_visited values('".$_SESSION['uname']."', '".$rid."'
 $result1 = mysql_query($visited) or die('Query failed: ' . mysql_error());
 
 $result = mysql_query("SELECT * FROM recipe, users where recipe.recipeId = '$rid.' and users.uname = recipe.uname") or die('Query failed: ' . mysql_error());
-$row = mysql_fetch_array($result);  
-$_SESSION['rtitle'] = $row["r_title"];
+$row1 = mysql_fetch_array($result);  
+$_SESSION['rtitle'] = $row1["r_title"];
 echo "<div  id = \"content\">";
-echo "<div style='text-align:center;'><h2 class='col-center-block'>". $row["r_title"]. "</div></h2>";
-$visits = mysql_query("SELECT count(*) FROM user_visited where recipeId = $row[recipeId]" );
+echo "<div style='text-align:center;'><h2 class='col-center-block'>". $row1["r_title"]. "</div></h2>";
+$visits = mysql_query("SELECT count(*) FROM user_visited where recipeId = $row1[recipeId]" );
 $v = $visits[0] == "" ? 0 : $visits[0];
-echo "<div style='text-align:right;'><h4> <font color='gray'>Arthur:&nbsp&nbsp" . $row['nickname'] ."</font></h4></div>";
-echo "<div style='text-align:right;'><h4> <font color='gray'>" . $row['rtime'] ."</font></h4></div>";
+echo "<div style='text-align:right;'><h4> <font color='gray'>Arthur:&nbsp&nbsp" . $row1['nickname'] ."</font></h4></div>";
+echo "<div style='text-align:right;'><h4> <font color='gray'>" . $row1['rtime'] ."</font></h4></div>";
 
 $ing = mysql_query("SELECT * FROM ingredient where recipeId = '$rid'");
 echo "<h4>ingredients:</h4>";
@@ -207,7 +207,7 @@ while ($row = mysql_fetch_array($ing)) {
 }
 
 
-echo "<pre>". $row['r_description'] . "</pre>";
+echo "<pre>". $row1['r_description'] . "</pre>";
 
 $images = mysql_query("SELECT image from recipe_img where recipeId = '$rid' ");
 
