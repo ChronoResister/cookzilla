@@ -153,7 +153,7 @@ mysql_select_db("cookzilla", $con);
   $uname = $_SESSION['uname'];
   $result = mysql_query("SELECT g.gid, g.gname from user_group g, group_mem m where m.uname = '$uname' and m.gid = g.gid");
   while ($row = mysql_fetch_array($result)) {
-    echo "<p><a href=\"group/event.php?gid=".urlencode($row['gid'])."\">".$row['gname']."</a></p>";
+    echo "<p><a href=\"group/joinEvent.php?gid=".urlencode($row['gid'])."\">".$row['gname']."</a></p>";
    
   }
   ?>
