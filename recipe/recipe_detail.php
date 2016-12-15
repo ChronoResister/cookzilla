@@ -9,6 +9,16 @@
 	<script src="../js/bootstrap.min.js"></script>
 
 	<style>
+  pre {
+    height: auto;
+    max-height: 1000px;
+    overflow: auto;
+    background-color: #eeeeee;
+    word-break: normal;
+    
+    white-space: pre-wrap;
+word-wrap: break-word;
+}​
 		.navbar.navbar-inverse.navbar-extra{
 			color: orange;
 		}
@@ -154,7 +164,7 @@ echo "<div  id = \"content\">";
 echo "<div style='text-align:center;'><h2 class='col-center-block'>". $row1["r_title"]. "</div></h2>";
 $visits = mysql_query("SELECT count(*) FROM user_visited where recipeId = $row1[recipeId]" );
 $v = $visits[0] == "" ? 0 : $visits[0];
-echo "<div style='text-align:right;'><h4> <font color='gray'>Arthur:&nbsp&nbsp" . $row1['nickname'] ."</font></h4></div>";
+echo "<div style='text-align:right;'><h4> <font color='gray'>Author:&nbsp&nbsp" . $row1['nickname'] ."</font></h4></div>";
 echo "<div style='text-align:right;'><h4> <font color='gray'>" . $row1['rtime'] ."</font></h4></div>";
 
 $ing = mysql_query("SELECT * FROM ingredient where recipeId = '$rid'");
@@ -206,7 +216,7 @@ while ($row = mysql_fetch_array($ing)) {
   echo "<p>".$row['iname'].":&nbsp&nbsp".$row['iquantity']."&nbsp".$unit."</p>";
 }
 
-
+echo "<br><h4>Description:</h4>";
 echo "<pre>". $row1['r_description'] . "</pre>";
 
 $images = mysql_query("SELECT image from recipe_img where recipeId = '$rid' ");
@@ -215,7 +225,7 @@ while($row = mysql_fetch_array($images)) {
     
     echo "<img src='".$row[0]."' class='img'>";
 }
-echo "<h2><a class='btn btn-primary' href='/cookzilla/recipe/new_review.php'>Post Review</a></h2>";
+echo "<br><h2><a class='btn btn-primary' href='/cookzilla/recipe/new_review.php'>Post Review</a></h2>";
 echo "<h2>Review:</h2>";
 
 $reviews = mysql_query("SELECT * from review where recipeId = '$rid' order by wtime desc");
