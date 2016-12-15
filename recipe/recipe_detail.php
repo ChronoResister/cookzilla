@@ -38,7 +38,7 @@ word-wrap: break-word;
     width: 800px;    
     height:500px;
     padding-left: 50px;
-    
+     
 }
 #review {
   float:left;
@@ -223,7 +223,7 @@ $images = mysql_query("SELECT image from recipe_img where recipeId = '$rid' ");
 
 while($row = mysql_fetch_array($images)) {
     
-    echo "<img src='".$row[0]."' class='img'>";
+    echo "<img src='".$row[0]."' class='img' width='750'> ";
 }
 echo "<br><h2><a class='btn btn-primary' href='/cookzilla/recipe/new_review.php'>Post Review</a></h2>";
 echo "<h2>Review:</h2>";

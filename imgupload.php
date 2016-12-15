@@ -23,7 +23,7 @@ if(!$file){
 	$sql=mysql_query("insert into images(img) values($file)");
 	
 	
-	echo "<img src='../images/".$file."' class='img'>";
+	echo "<img src='../images/".$file."' class='img' width = '600'><br>";
 	echo "../images/".$file."";
 	//echo "images/".$file."";
 

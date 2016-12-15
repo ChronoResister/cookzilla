@@ -50,6 +50,7 @@
 
 
 	<style>
+
 		.navbar.navbar-inverse.navbar-extra{
 			color: orange;
 		}

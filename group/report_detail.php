@@ -12,6 +12,9 @@
     white-space: pre-wrap;
 word-wrap: break-word;
 }​
+#content{
+  width: 600px;
+}
     #profile{
       max-height: 200;
     }
@@ -108,7 +111,7 @@ $erid = $_GET["erid"];
 $result = mysql_query("SELECT er.*, u.nickname FROM event_report er, users u where er.erId = '$erid.' and u.uname = er.uname") or die('Query failed: ' . mysql_error());
 $row = mysql_fetch_array($result);  
 //$_SESSION['rtitle'] = $row["r_title"];
-echo "<div  id = \"content\">";
+echo "<div  id = \"content\" class='col-center-block'>";
 echo "<div style='text-align:center;'><h2 class='col-center-block'>". $row["ertitle"]. "</div></h2>";
 
 echo "<div style='text-align:right;'><h4> <font color='gray'>Arthur:&nbsp&nbsp" . $row['nickname'] ."</font></h4></div>";
@@ -122,10 +125,10 @@ echo "<div style='text-align:right;'><h4> <font color='gray'>" . $row['ertime'] 
 echo "<pre>". $row['rtext'] . "</pre>";
 
 $images = mysql_query("SELECT image from report_img where erId = '$erid' ");
-
+echo "<div style='width:500px'>";
 while($row = mysql_fetch_array($images)) {
     
-    echo "<img src='".$row[0]."' class='img'>";
+    echo "<img src='".$row[0]."' class='img'  width='600'>";
 }
 
 
@@ -136,7 +139,7 @@ while($row = mysql_fetch_array($images)) {
 ?>
 <!--<a class="btn btn-primary" href="/cookzilla/recipe/new_review.php?rid=$rid">Post Recipe</a>-->
 </div>  
-
+</div>
        
 
 

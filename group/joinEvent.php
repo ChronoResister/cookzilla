@@ -435,5 +435,17 @@ mysql_close($con);
     </fieldset>
     </form>
     </div>
+    </body>
+    <script type="text/javascript">
+      function check()
+{
+if(document.form.ename.value.length==0){
+  alert("Event name cannot be null!");
+  document.form.ename.focus();
+  return false;
+  }
+}
+    </script>
+    </html>
 
 
