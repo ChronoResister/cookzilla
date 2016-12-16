@@ -140,7 +140,7 @@
 mysql_select_db("cookzilla", $con);
 
 if($_GET['sort'] == 'rating') {
-    $result = mysql_query("SELECT recipe.*, avg(wrating) from recipe, review where recipe.recipeId = review.recipeId order by avg(wrating) desc
+    $result = mysql_query("select r.*, a.av from recipe r, (select recipeId, avg(wrating) as av from review group by recipeId order by av desc) as a where r.recipeId = a.recipeId
 ") or die('Query failed: ' . mysql_error());
     while($row = mysql_fetch_array($result)){
       echo "<tr>";
